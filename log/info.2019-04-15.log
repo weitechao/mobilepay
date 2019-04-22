@@ -1,0 +1,11 @@
+2019-04-15 11:51:27,294 [http-8080-1] INFO  DruidDataSource - {dataSource-1} inited
+2019-04-15 11:54:30,097 [http-8080-1] INFO  DruidDataSource - {dataSource-1} inited
+2019-04-15 11:57:28,977 [http-8080-1] INFO  DruidDataSource - {dataSource-1} inited
+2019-04-15 12:36:35,176 [http-8080-1] INFO  DruidDataSource - {dataSource-1} inited
+2019-04-15 12:37:03,872 [http-8080-1] INFO  DruidDataSource - {dataSource-1} inited
+2019-04-15 12:52:45,184 [http-bio-8080-exec-6] INFO  DruidDataSource - {dataSource-1} inited
+2019-04-15 12:53:35,470 [http-bio-8080-exec-1] INFO  DruidDataSource - {dataSource-1} inited
+2019-04-15 12:56:26,323 [http-bio-8080-exec-1] INFO  DruidDataSource - {dataSource-1} inited
+2019-04-15 13:00:26,949 [http-bio-8080-exec-1] INFO  CommonController - sdklfajdfa
+2019-04-15 13:00:26,953 [http-bio-8080-exec-1] INFO  CommonController - CX
+2019-04-15 13:00:27,265 [http-bio-8080-exec-1] INFO  DruidDataSource - {dataSource-1} inited
