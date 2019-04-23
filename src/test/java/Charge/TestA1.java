@@ -2,6 +2,7 @@ package Charge;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -39,6 +40,11 @@ public class TestA1 {
 		 SimpleDateFormat ftt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		 System.out.println(ftt.format(new Date()));
 		
+		 UUID uuid = UUID.randomUUID();   
+		  System.out.println (uuid);  
+		  /*98f1e877-07bd-4799-b3b1-34a2181c6051
+		   * */
+		  System.out.println(uuid.toString().length());
 	
 	}
 

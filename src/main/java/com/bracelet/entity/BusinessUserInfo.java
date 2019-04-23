@@ -13,7 +13,16 @@ public class BusinessUserInfo {
 	private Timestamp updatetime;
 	private Integer shangyou_type;
 	private String shangyou_content;
+	private String scret;
 	
+	
+	
+	public String getScret() {
+		return scret;
+	}
+	public void setScret(String scret) {
+		this.scret = scret;
+	}
 	public Integer getId() {
 		return id;
 	}
