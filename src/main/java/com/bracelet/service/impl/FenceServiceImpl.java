@@ -118,4 +118,29 @@ public class FenceServiceImpl implements IFenceService {
 		return null;
 	}
 
+	@Override
+	public boolean insert1ErrorChargeInfo(String userName, String orderId, String chargeAcct, Integer chargeCash,
+			Integer errorCode, Integer id) {
+		logger.info("insert1ErrorChargeInfo  orderid="+orderId);
+		Timestamp now = Utils.getCurrentTimestamp();
+		int i = jdbcTemplate.update(
+				"insert into business_error1_cx_info (username, order_id, charge_acct, charge_cash, createtime,error_code,user_id) values (?,?,?,?,?,?,?)",
+				new Object[] { userName, orderId, chargeAcct, chargeCash, now,errorCode,id },
+				new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER, Types.TIMESTAMP, Types.INTEGER, Types.INTEGER});
+		return i == 1;
+	}
+
+	@Override
+	public CxInfo getCharge1ErrorInfo(String ejId) {
+		String sql = "select * from business_error1_cx_info where order_id=?  LIMIT 1";
+		List<CxInfo> list = jdbcTemplate.query(sql, new Object[] { ejId}, new BeanPropertyRowMapper<CxInfo>(CxInfo.class));
+
+		if (list != null && !list.isEmpty()) {
+			return list.get(0);
+		} else {
+			logger.info("getCharge1ErrorInfo return null.user_id:" + ejId);
+		}
+		return null;
+	}
+
 }

@@ -102,6 +102,7 @@ public class CommonController extends BaseController {
 			@RequestParam String Errorcode,	@RequestParam String Errormsg,
 			@RequestParam String Sign
 			) {
+		
 		System.out.println(Action);
 		System.out.println(AgentAccount);
 		System.out.println(Agentbalance);
@@ -130,6 +131,19 @@ public class CommonController extends BaseController {
 	public String returl2(@RequestParam String userId,@RequestParam String bizId,
 			@RequestParam String ejId,	@RequestParam String downstreamSerialno,
 			@RequestParam Integer status,	@RequestParam String sign) {
+		logger.info("第一家公司回调订单="+ejId+";状态="+status);
+		CxInfo cxInfoError = fenceService.getCharge1ErrorInfo(ejId);
+		if(cxInfoError != null){
+			if(status==0){
+				insertSuccessInfo(cxInfoError.getUsername(), ejId, cxInfoError.getCharge_acct(),  cxInfoError.getCharge_cash(), 1);// 增加商户充值成功记录
+			}else{
+				updateUserBalanceByIdInsert(cxInfoError.getUser_id(), cxInfoError.getCharge_cash());
+				insertErrorChargeInfo(cxInfoError.getUsername(), ejId, cxInfoError.getCharge_acct(),  cxInfoError.getCharge_cash(), status);// 增加商户充值成功记录
+			}
+		}
+		/*
+		 * http://xxxxxxx/xxx?userId=1&bizId=200&ejId=123188&downstreamSerialno=123188&status=2&sign=65b015dc3945c4cb677e0d39cea17237
+		 * */
 		
 			return "success";
 	}

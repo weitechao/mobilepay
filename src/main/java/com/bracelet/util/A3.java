@@ -21,13 +21,13 @@ import com.alibaba.fastjson.JSONObject;
 public class A3 {
 	private static Logger logger = LoggerFactory.getLogger(A3.class);
 
-	private static final String scret = "xE6saCQxhSf7JwR4eS4QGNsKh6rjTdXf";
+	//private static final String scret = "xE6saCQxhSf7JwR4eS4QGNsKh6rjTdXf";
 	private static final String agentAccount = "10001998";
 	private static final String url = "http://111.23.12.12:9086/onlinepay.do";
 	private static final String selectUrl = "http://111.23.12.12:9086/searchpay.do";
 	private static final String retUrl = "http://121.201.119.75:8080/mobilepay/common/a3";
 
-	public static String chongZhi(String shijian, String orderId, String chargeAcct, Integer chargeCash,String itemId) {
+	public static String chongZhi(String shijian, String orderId, String chargeAcct, Integer chargeCash,String itemId,String scret) {
 /*
  *userid=xxxx&productid=xxxxxxx&price=xxxx&num=xxx&mobile=xxxxx&spordertime=xxxxxxx&sporderid=xxxxx&key=xxxxxxx (这里的xxxxx为具体的参数值)
  * */

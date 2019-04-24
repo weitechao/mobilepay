@@ -1,6 +1,7 @@
 package com.bracelet.service;
 
 import com.bracelet.datasource.DataSourceChange;
+import com.bracelet.entity.CompanyInfo;
 
 public interface ITokenInfoService {
 	@DataSourceChange(slave = true)
@@ -9,5 +10,6 @@ public interface ITokenInfoService {
 	String getTokenByUserId(Long userId);
 	
 	String genToken(Long userId);
+	CompanyInfo getScretKeyByCompanyId(Integer id);
 
 }

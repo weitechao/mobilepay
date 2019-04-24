@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
-public class A2 {
+public class A1_1 {
 	/*
 	 * 
 	 * 
@@ -36,13 +36,13 @@ key:fc939a8f2a2276e65395478fa55a1013cae4e284fefc9c28c5b80a24903b4551
 userId:589
 写好代码请给我回调地址和白名单，谢谢
 	 * */
-	private static Logger logger = LoggerFactory.getLogger(A2.class);
+	private static Logger logger = LoggerFactory.getLogger(A1_1.class);
 
-//	private static final String privateKey = "fc939a8f2a2276e65395478fa55a1013cae4e284fefc9c28c5b80a24903b4551";
-	private static final String userId = "589";
+    private static final String privateKeyy = "ea8ec80aae5d87b0bd023ddf8e558b5ef634f4e14069eea069f97e08f8e3e4a5";
+	private static final String userId = "511";
 	//private static final String itemId = "gd_chhf";//商品编号
-	private static final String chongZhiUrl = "http://112.126.86.187:7760/unicomAync/buy.do";
-	private static final String chaXunUrl = "http://112.126.86.187:7760/unicomAync/queryBizOrder.do";
+	private static final String chongZhiUrl = "http://39.106.64.237:6160/unicomAync/buy.do";
+	private static final String chaXunUrl = "http://39.106.64.237:6160/unicomAync/queryBizOrder.do";
 //	private static final String retUrl = "http://121.201.119.75:9999/mobilepay/common/returl?";
 
 	public static String chongZhi(String dtCreate, String orderId, String chargeAcct, Integer chargeCash,String itemId,String scretKey) {
@@ -54,8 +54,8 @@ userId:589
 		map.put("userId", userId);
 		map.put("itemId", itemId);
 		map.put("serialno", orderId);
-		String jsonToString = HttpClientGet.sendGetToGaoDe(chongZhiUrl, map);
-		logger.info("A2请求返回="+jsonToString);
+		String jsonToString = HttpClientGet.sendGetToGaoDeA11(chongZhiUrl, map);
+		logger.info("A1新接口请求返回="+jsonToString);
 		
 		return jsonToString;
 	}

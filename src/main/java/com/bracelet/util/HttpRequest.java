@@ -82,7 +82,7 @@ public class HttpRequest {
             // 打开和URL之间的连接
             URLConnection conn = realUrl.openConnection();
             // 设置通用的请求属性
-            conn.setRequestProperty("accept", "*/*");
+            conn.setRequestProperty("accept", "application/json;charset=UTF-8");
             conn.setRequestProperty("connection", "Keep-Alive");
             //conn.setRequestProperty("caller","InspectAPP");
            //conn.setRequestProperty("content-type","application/json"); //设置参数格式  根据情况选取

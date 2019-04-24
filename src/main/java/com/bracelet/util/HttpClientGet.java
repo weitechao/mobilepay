@@ -105,6 +105,15 @@ public class HttpClientGet {
 
 		return returnParams;
 	}
+	
+	public static String sendGetToGaoDeA11(String url,
+			LinkedHashMap<String, String> map) {
+		String urlNameString = url + paramsTransToUrl(map);
+		logger.info("A1新接口请求url="+urlNameString);
+		String returnParams = urlReturnParams(urlNameString);
+
+		return returnParams;
+	}
 
 	public static String paramsTransToUrl(LinkedHashMap<String, String> map) {
 		StringBuffer params = new StringBuffer("?");

@@ -1,6 +1,7 @@
 package com.bracelet.controller;
 
 import com.bracelet.entity.BusinessUserInfo;
+import com.bracelet.entity.CompanyInfo;
 import com.bracelet.exception.BizException;
 import com.bracelet.service.IDeviceService;
 import com.bracelet.service.IFenceService;
@@ -44,6 +45,16 @@ public class BaseController {
 			throw new BizException(RespCode.U_NOT_EXIST);
 		}
 		return user_id;
+	}
+	
+	
+	protected String getScretKeyById(Integer id) {
+		String companySecret="1";
+		CompanyInfo company =  tokenInfoService.getScretKeyByCompanyId(id);
+		if(company!=null){
+			companySecret=company.getSecret_key()+"";
+		}
+		return companySecret;
 	}
 
 	protected Map<String, Object> checkUserTrue(String userName) {
@@ -95,6 +106,10 @@ public class BaseController {
 	public void insert3ErrorChargeInfo(String userName, String orderId, String chargeAcct, Integer chargeCash,
 			Integer errorCode,Integer id) {
 		fenceService.insert3ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode,id);// 增加商户充值失败记录
+	}
+	public void insert1ErrorChargeInfo(String userName, String orderId, String chargeAcct, Integer chargeCash,
+			Integer errorCode,Integer id) {
+		fenceService.insert1ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode,id);// 增加商户充值失败记录
 	}
 	
 	public static void main(String[] args) {

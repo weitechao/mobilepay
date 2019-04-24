@@ -1,6 +1,8 @@
 package com.bracelet.service.impl;
 
 import com.bracelet.datasource.DataSourceChange;
+import com.bracelet.entity.CompanyInfo;
+import com.bracelet.entity.Step;
 import com.bracelet.entity.TokenInfo;
 import com.bracelet.service.ITokenInfoService;
 import com.bracelet.util.Utils;
@@ -88,5 +90,17 @@ public class TokenInfoServiceImpl implements ITokenInfoService {
 		jdbcTemplate.update("replace into "+ table + "  (token, user_id, createtime) values (?,?,?)",
 				new Object[] { token, userId, now }, new int[] { Types.VARCHAR, Types.INTEGER, Types.TIMESTAMP });
 			return token;
+	}
+
+	@Override
+	public CompanyInfo getScretKeyByCompanyId(Integer id) {
+		String sql = "select * from companyinfo where id=?   LIMIT 1";
+		List<CompanyInfo> list = jdbcTemplate.query(sql, new Object[] { id }, new BeanPropertyRowMapper<CompanyInfo>(CompanyInfo.class));
+		if (list != null && !list.isEmpty()) {
+			return list.get(0);
+		} else {
+			logger.info("getScretKeyByCompanyId return null.user_id:" + id);
+		}
+		return null;
 	}
 }

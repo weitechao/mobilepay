@@ -21,6 +21,7 @@ import com.bracelet.service.IPushlogService;
 import com.bracelet.service.IStepService;
 import com.bracelet.service.IUserInfoService;
 import com.bracelet.util.A1;
+import com.bracelet.util.A1_1;
 import com.bracelet.util.A2;
 import com.bracelet.util.A3;
 import com.bracelet.util.Des;
@@ -56,6 +57,10 @@ public class AgentPhone extends BaseController {
 			Map<String, Object> result = checkUserTrue(userName);// 使用状态 ，余额。
 																	// 匹配的上游id，用户id
 			/* use_status blance id use_id scret */
+			if (Integer.valueOf(result.get("use_id") + "") == 0) {
+				bb.put("code", 2);
+				return bb.toString();
+			}
 			if (Integer.valueOf(result.get("use_status") + "") != 1) {
 				bb.put("code", 0);
 				return bb.toString();
@@ -75,25 +80,29 @@ public class AgentPhone extends BaseController {
 			}
 			// 这里匹配的url秘钥什么的直接写死在查询消耗性能 id从1开始
 			updateUserBalanceById(Integer.valueOf(result.get("use_id") + ""), chargeCash);
+			
+			
 			Integer useInterface = Integer.valueOf(result.get("id") + "");
 			String orderId = jsonObject.getString("orderId"); // 订单号必须唯一由商户自己生成
 			String chargeAcct = jsonObject.getString("chargeAcct"); // 充值账号chargeCash
 			if (useInterface == 1) {// 这是匹配第一个文档接口
-				String reponse = A1.chongZhi(orderId, chargeAcct, chargeCash);
+				String dtCreate = jsonObject.getString("dtCreate");// yyyyMMddHHmmss
+				String itemId = jsonObject.getString("itemId");// 商品编号
+				String reponse = A1_1.chongZhi(dtCreate, orderId, chargeAcct, chargeCash, itemId, getScretKeyById(1));
 				JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
-				Integer errorCode = reponseJsonObject.getInteger("errorCode"); // 1表示成功
-				if (errorCode == 1) {
+				Integer errorCode = reponseJsonObject.getInteger("code"); // 1表示成功
+				if (errorCode == 0) {
 
 					bb.put("code", 1);
 					insertSuccessInfo(userName, orderId, chargeAcct, chargeCash, errorCode);// 增加商户充值成功记录
 				} else {
 					bb.put("code", errorCode);
-					insertErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode);// 增加商户充值成功记录
+					insert1ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode,Integer.valueOf(result.get("use_id") + ""));// 增加商户充值成功记录
 				}
 			} else if (useInterface == 2) {
 				String dtCreate = jsonObject.getString("dtCreate");// yyyyMMddHHmmss
 				String itemId = jsonObject.getString("itemId");// 商品编号
-				String reponse = A2.chongZhi(dtCreate, orderId, chargeAcct, chargeCash, itemId);
+				String reponse = A2.chongZhi(dtCreate, orderId, chargeAcct, chargeCash, itemId, getScretKeyById(2));
 				JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
 				Integer errorCode = reponseJsonObject.getInteger("code");
 				if (errorCode == 0) {
@@ -107,7 +116,7 @@ public class AgentPhone extends BaseController {
 			} else if (useInterface == 3) {
 
 				String itemId = jsonObject.getString("itemId");// 商品编号
-				String reponse = A3.chongZhi(Utils.getYyyyMMdd(), orderId, chargeAcct, chargeCash, itemId);
+				String reponse = A3.chongZhi(Utils.getYyyyMMdd(), orderId, chargeAcct, chargeCash, itemId,getScretKeyById(3));
 
 				JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
 				String order = reponseJsonObject.getString("order");
@@ -186,7 +195,7 @@ public class AgentPhone extends BaseController {
 			}
 
 			if (useInterface == 1) {
-				String reponse = A1.orderIdSelect(orderId);
+				String reponse = A1.orderIdSelect(orderId, getScretKeyById(1));
 				logger.info("请求上游查询接口返回的数据=" + reponse);
 				JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
 
@@ -218,7 +227,7 @@ public class AgentPhone extends BaseController {
 
 			} else if (useInterface == 2) {
 
-				String reponse = A2.chaXun(orderId);
+				String reponse = A2.chaXun(orderId , getScretKeyById(2));
 				JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
 				Integer errorCode = reponseJsonObject.getInteger("code");
 				Integer amount = reponseJsonObject.getInteger("amount");
@@ -336,7 +345,7 @@ public class AgentPhone extends BaseController {
 					if (useInterface == 1) {
 						for (int i = 0; i < chargeAcct.length; i++) {
 
-							String reponse = A1.chongZhi(orderId + i, chargeAcct[i], Integer.valueOf(chargeCash[i]));
+							String reponse = A1.chongZhi(orderId + i, chargeAcct[i], Integer.valueOf(chargeCash[i]),getScretKeyById(1));
 							if (sbOrderid.length() > 0) {
 								sbOrderid.append(",");
 							}
@@ -365,7 +374,7 @@ public class AgentPhone extends BaseController {
 							}
 							sbOrderid.append(orderId + i);
 							String reponse = A2.chongZhi(dtCreate, orderId, chargeAcct[i],
-									Integer.valueOf(chargeCash[i]), itemId[i]);
+									Integer.valueOf(chargeCash[i]), itemId[i],getScretKeyById(2));
 							JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
 							Integer errorCode = reponseJsonObject.getInteger("errorCode"); // 1表示成功
 							if (sb.length() > 0) {
@@ -391,7 +400,7 @@ public class AgentPhone extends BaseController {
 							sbOrderid.append(orderId + i);
 
 							String reponse = A3.chongZhi(Utils.getYyyyMMdd(), orderId, chargeAcct[i] + i,
-									Integer.valueOf(chargeCash[i]), itemId[i]);
+									Integer.valueOf(chargeCash[i]), itemId[i], getScretKeyById(3));
 
 							JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
 							String order = reponseJsonObject.getString("order");

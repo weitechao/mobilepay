@@ -21,12 +21,12 @@ import com.alibaba.fastjson.JSONObject;
 public class A1 {
 	private static Logger logger = LoggerFactory.getLogger(A1.class);
 
-	private static final String scret = "90AC65D5F9D3C2F2";
+	
 	private static final String agentAccount = "gd_chhf";
 	private static final String url = "http://api.madaikr.com:50080/API";
 	private static final String retUrl = "http://121.201.119.75:8080/mobilepay/common/returl?";
 
-	public static String chongZhi(String orderId, String chargeAcct, Integer chargeCash) {
+	public static String chongZhi(String orderId, String chargeAcct, Integer chargeCash, String scretKey) {
 
 		JSONObject jsona = new JSONObject();
 		jsona.put("action", "CZ");
@@ -35,18 +35,9 @@ public class A1 {
 		jsona.put("chargeCash", chargeCash);
 		jsona.put("chargeType", 0);
 		jsona.put("retUrl", retUrl);
-		String jsonaString = jsona.toString() + scret;// 签名原文
+		String jsonaString = jsona.toString() + scretKey;// 签名原文
 		logger.info("jsonaString=" + jsonaString);
-		String sign="";
-		try {
-			String urlEncoder = URLEncoder.encode(jsonaString, "gbk");
-			logger.info("urlEncoder="+urlEncoder);
-			sign = Md5.encryption(urlEncoder);
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		logger.info("sign=" + sign);
+		String sign = Md5.encryption(jsonaString);
 
 		JSONObject jsonAll = new JSONObject();
 		jsonAll.put("sign", sign);
@@ -59,13 +50,13 @@ public class A1 {
 		return reponse;
 	}
 
-	public static String orderIdSelect(String orderId) {
+	public static String orderIdSelect(String orderId, String scretKey) {
 
 		JSONObject jsona = new JSONObject();
 		jsona.put("action", "CX");
 		jsona.put("orderId", orderId);
 
-		String jsonaString = jsona.toString() + scret;// 签名原文
+		String jsonaString = jsona.toString() + scretKey;// 签名原文
 		logger.info("jsonaString=" + jsonaString);
 		String sign = Md5.encryption(jsonaString);
 		logger.info("sign=" + sign);
@@ -210,7 +201,7 @@ public class A1 {
 		jsona.put("chargeType", 0);
 		jsona.put("chargeCash", chargeCash);
 		jsona.put("retUrl", "");
-		String jsonaString = jsona.toString() + scret;// 签名原文
+		String jsonaString = jsona.toString() + "";// 签名原文
 		System.out.println("jsonaString=" + jsonaString);
 
 		String sign = Md5.encryption(jsonaString);
