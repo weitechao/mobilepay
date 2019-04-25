@@ -83,12 +83,15 @@ public class AgentPhone extends BaseController {
 			
 			
 			Integer useInterface = Integer.valueOf(result.get("id") + "");
+			 String bScret = getScretKeyById(useInterface);
+			 logger.info("商户="+useInterface+"的秘钥bScret="+bScret); 
+			
 			String orderId = jsonObject.getString("orderId"); // 订单号必须唯一由商户自己生成
 			String chargeAcct = jsonObject.getString("chargeAcct"); // 充值账号chargeCash
 			if (useInterface == 1) {// 这是匹配第一个文档接口
 				String dtCreate = jsonObject.getString("dtCreate");// yyyyMMddHHmmss
 				String itemId = jsonObject.getString("itemId");// 商品编号
-				String reponse = A1_1.chongZhi(dtCreate, orderId, chargeAcct, chargeCash, itemId, getScretKeyById(1));
+				String reponse = A1_1.chongZhi(dtCreate, orderId, chargeAcct, chargeCash, itemId,bScret);
 				JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
 				Integer errorCode = reponseJsonObject.getInteger("code"); // 1表示成功
 				if (errorCode == 0) {
@@ -102,21 +105,21 @@ public class AgentPhone extends BaseController {
 			} else if (useInterface == 2) {
 				String dtCreate = jsonObject.getString("dtCreate");// yyyyMMddHHmmss
 				String itemId = jsonObject.getString("itemId");// 商品编号
-				String reponse = A2.chongZhi(dtCreate, orderId, chargeAcct, chargeCash, itemId, getScretKeyById(2));
+				String reponse = A2.chongZhi(dtCreate, orderId, chargeAcct, chargeCash, itemId, bScret);
 				JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
 				Integer errorCode = reponseJsonObject.getInteger("code");
 				if (errorCode == 0) {
 
 					bb.put("code", 1);
-					insertSuccessInfo(userName, orderId, chargeAcct, chargeCash, 1);// 增加商户充值成功记录
+					//insertSuccessInfo(userName, orderId, chargeAcct, chargeCash, 1);// 增加商户充值成功记录
 				} else {
 					bb.put("code", errorCode);
-					insertErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode);// 增加商户充值成功记录
+					insert2ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode,Integer.valueOf(result.get("use_id") + ""));// 增加商户充值成功记录
 				}
 			} else if (useInterface == 3) {
 
 				String itemId = jsonObject.getString("itemId");// 商品编号
-				String reponse = A3.chongZhi(Utils.getYyyyMMdd(), orderId, chargeAcct, chargeCash, itemId,getScretKeyById(3));
+				String reponse = A3.chongZhi(Utils.getYyyyMMdd(), orderId, chargeAcct, chargeCash, itemId,bScret);
 
 				JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
 				String order = reponseJsonObject.getString("order");
@@ -342,10 +345,14 @@ public class AgentPhone extends BaseController {
 					StringBuffer sbOrderid = new StringBuffer();
 					updateUserBalanceById(Integer.valueOf(result.get("user_id") + ""), totalAmount); // 先扣钱
 					Integer useInterface = Integer.valueOf(result.get("id") + "");
+					
+					 String bScret = getScretKeyById(useInterface);
+					 logger.info("批冲商户="+useInterface+"的秘钥bScret="+bScret); 
+					 
 					if (useInterface == 1) {
 						for (int i = 0; i < chargeAcct.length; i++) {
 
-							String reponse = A1.chongZhi(orderId + i, chargeAcct[i], Integer.valueOf(chargeCash[i]),getScretKeyById(1));
+							String reponse = A1.chongZhi(orderId + i, chargeAcct[i], Integer.valueOf(chargeCash[i]),bScret);
 							if (sbOrderid.length() > 0) {
 								sbOrderid.append(",");
 							}
@@ -362,8 +369,8 @@ public class AgentPhone extends BaseController {
 										errorCode);// 增加商户充值成功记录
 							} else {
 
-								insertErrorChargeInfo(userName, orderId + i, chargeAcct[i],
-										Integer.valueOf(chargeCash[i]), errorCode);// 增加商户充值成功记录
+								insert1ErrorChargeInfo(userName, orderId + i, chargeAcct[i],
+										Integer.valueOf(chargeCash[i]), errorCode, Integer.valueOf(result.get("user_id") + ""));// 增加商户充值成功记录
 							}
 						}
 					} else if (useInterface == 2) {
@@ -374,7 +381,7 @@ public class AgentPhone extends BaseController {
 							}
 							sbOrderid.append(orderId + i);
 							String reponse = A2.chongZhi(dtCreate, orderId, chargeAcct[i],
-									Integer.valueOf(chargeCash[i]), itemId[i],getScretKeyById(2));
+									Integer.valueOf(chargeCash[i]), itemId[i],bScret);
 							JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
 							Integer errorCode = reponseJsonObject.getInteger("errorCode"); // 1表示成功
 							if (sb.length() > 0) {
@@ -387,8 +394,8 @@ public class AgentPhone extends BaseController {
 										errorCode);// 增加商户充值成功记录
 							} else {
 								bb.put("code", errorCode);
-								insertErrorChargeInfo(userName, orderId + i, chargeAcct[i],
-										Integer.valueOf(chargeCash[i]), errorCode);// 增加商户充值成功记录
+								insert2ErrorChargeInfo(userName, orderId + i, chargeAcct[i],
+										Integer.valueOf(chargeCash[i]),errorCode, Integer.valueOf(result.get("user_id") + ""));// 增加商户充值成功记录
 							}
 						}
 
@@ -400,7 +407,7 @@ public class AgentPhone extends BaseController {
 							sbOrderid.append(orderId + i);
 
 							String reponse = A3.chongZhi(Utils.getYyyyMMdd(), orderId, chargeAcct[i] + i,
-									Integer.valueOf(chargeCash[i]), itemId[i], getScretKeyById(3));
+									Integer.valueOf(chargeCash[i]), itemId[i], bScret);
 
 							JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
 							String order = reponseJsonObject.getString("order");

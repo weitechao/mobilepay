@@ -112,6 +112,11 @@ public class BaseController {
 		fenceService.insert1ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode,id);// 增加商户充值失败记录
 	}
 	
+	public void insert2ErrorChargeInfo(String userName, String orderId, String chargeAcct, Integer chargeCash,
+			Integer errorCode,Integer id) {
+		fenceService.insert2ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode,id);// 增加商户充值失败记录
+	}
+	
 	public static void main(String[] args) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("username", 1);

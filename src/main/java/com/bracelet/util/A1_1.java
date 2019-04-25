@@ -46,7 +46,8 @@ userId:589
 //	private static final String retUrl = "http://121.201.119.75:9999/mobilepay/common/returl?";
 
 	public static String chongZhi(String dtCreate, String orderId, String chargeAcct, Integer chargeCash,String itemId,String scretKey) {
-		String sign = Md5.encryption(dtCreate+itemId+orderId+userId+scretKey);
+        logger.info("原始数据="+dtCreate+itemId+orderId+chargeAcct+userId+scretKey);
+		String sign = Md5.encryption(dtCreate+itemId+orderId+chargeAcct+userId+scretKey);
 		LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
 		map.put("sign", sign);
 		map.put("uid", chargeAcct);

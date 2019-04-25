@@ -31,4 +31,9 @@ public interface IFenceService {
 
 	CxInfo getCharge1ErrorInfo(String ejId);
 
+	boolean insert2ErrorChargeInfo(String userName, String orderId, String chargeAcct, Integer chargeCash,
+			Integer errorCode, Integer id);
+
+	CxInfo getCharge2ErrorInfo(String ejId);
+
 }
