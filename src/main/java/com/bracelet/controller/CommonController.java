@@ -131,10 +131,10 @@ public class CommonController extends BaseController {
 	public String returl2(@RequestParam String userId,@RequestParam String bizId,
 			@RequestParam String ejId,	@RequestParam String downstreamSerialno,
 			@RequestParam Integer status,	@RequestParam String sign) {
-		logger.info("第一家公司回调订单="+ejId+";状态="+status);
+		logger.info("第一家公司回调订单="+downstreamSerialno+";状态="+status);
 		CxInfo cxInfoError = fenceService.getCharge1ErrorInfo(downstreamSerialno);
 		if(cxInfoError != null){
-			if(status==0){
+			if(status==2){
 				insertSuccessInfo(cxInfoError.getUsername(), ejId, cxInfoError.getCharge_acct(),  cxInfoError.getCharge_cash(), 1);// 增加商户充值成功记录
 			}else{
 				updateUserBalanceByIdInsert(cxInfoError.getUser_id(), cxInfoError.getCharge_cash());

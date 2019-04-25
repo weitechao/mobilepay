@@ -281,6 +281,7 @@ public class AgentPhone extends BaseController {
 			bb.put("balance", result.get("blance") + "");
 
 		} catch (Exception e) {
+			bb.put("code", -1);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
