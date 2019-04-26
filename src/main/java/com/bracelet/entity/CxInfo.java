@@ -12,8 +12,17 @@ public class CxInfo {
 	private Integer error_code;
 	private Timestamp createtime;
 	private Integer user_id;
+	private String ret_url;
 	
 	
+	
+	
+	public String getRet_url() {
+		return ret_url;
+	}
+	public void setRet_url(String ret_url) {
+		this.ret_url = ret_url;
+	}
 	public Integer getUser_id() {
 		return user_id;
 	}

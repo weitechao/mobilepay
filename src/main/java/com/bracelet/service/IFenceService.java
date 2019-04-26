@@ -22,17 +22,17 @@ public interface IFenceService {
 	CxInfo getChargeErrorInfo(String userName, String orderId);
 
 	boolean insert3ErrorChargeInfo(String userName, String orderId, String chargeAcct, Integer chargeCash,
-			Integer errorCode,Integer id);
+			Integer errorCode,Integer id, String retUrl);
 
 	CxInfo getCharge3ErrorInfo(String string);
 
 	boolean insert1ErrorChargeInfo(String userName, String orderId, String chargeAcct, Integer chargeCash,
-			Integer errorCode,Integer id);
+			Integer errorCode,Integer id, String retUrl);
 
 	CxInfo getCharge1ErrorInfo(String ejId);
 
 	boolean insert2ErrorChargeInfo(String userName, String orderId, String chargeAcct, Integer chargeCash,
-			Integer errorCode, Integer id);
+			Integer errorCode, Integer id, String retUrl);
 
 	CxInfo getCharge2ErrorInfo(String ejId);
 

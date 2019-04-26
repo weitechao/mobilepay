@@ -14,6 +14,7 @@ public class BusinessUserInfo {
 	private Integer shangyou_type;
 	private String shangyou_content;
 	private String scret;
+	private String url;
 	
 	
 	
@@ -84,5 +85,13 @@ public class BusinessUserInfo {
 	public void setShangyou_content(String shangyou_content) {
 		this.shangyou_content = shangyou_content;
 	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
+	
 	
 }

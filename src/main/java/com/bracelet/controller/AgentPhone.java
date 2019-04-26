@@ -94,13 +94,15 @@ public class AgentPhone extends BaseController {
 				String reponse = A1_1.chongZhi(dtCreate, orderId, chargeAcct, chargeCash, itemId,bScret);
 				JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
 				Integer errorCode = reponseJsonObject.getInteger("code"); // 1表示成功
+				
+				insert1ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode,Integer.valueOf(result.get("use_id")+""),result.get("ret_url")+"");// 增加商户充值成功记录
 				if (errorCode == 0) {
 
 					bb.put("code", 1);
-					insertSuccessInfo(userName, orderId, chargeAcct, chargeCash, errorCode);// 增加商户充值成功记录
+					//insertSuccessInfo(userName, orderId, chargeAcct, chargeCash, errorCode);// 增加商户充值成功记录
 				} else {
 					bb.put("code", errorCode);
-					insert1ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode,Integer.valueOf(result.get("use_id") + ""));// 增加商户充值成功记录
+				
 				}
 			} else if (useInterface == 2) {
 				String dtCreate = jsonObject.getString("dtCreate");// yyyyMMddHHmmss
@@ -108,13 +110,12 @@ public class AgentPhone extends BaseController {
 				String reponse = A2.chongZhi(dtCreate, orderId, chargeAcct, chargeCash, itemId, bScret);
 				JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
 				Integer errorCode = reponseJsonObject.getInteger("code");
+				insert2ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode,Integer.valueOf(result.get("use_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
 				if (errorCode == 0) {
-
 					bb.put("code", 1);
 					//insertSuccessInfo(userName, orderId, chargeAcct, chargeCash, 1);// 增加商户充值成功记录
 				} else {
 					bb.put("code", errorCode);
-					insert2ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode,Integer.valueOf(result.get("use_id") + ""));// 增加商户充值成功记录
 				}
 			} else if (useInterface == 3) {
 
@@ -125,13 +126,13 @@ public class AgentPhone extends BaseController {
 				String order = reponseJsonObject.getString("order");
 				JSONObject OrderJson = (JSONObject) JSON.parse(order);
 				String resultno = OrderJson.getString("resultno");
-
+				insert3ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, Integer.valueOf(resultno),
+						Integer.valueOf(result.get("use_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
 				if ("1".equals(resultno)) {
-					insertSuccessInfo(userName, orderId, chargeAcct, chargeCash, 1);// 增加商户充值成功记录
+					//insertSuccessInfo(userName, orderId, chargeAcct, chargeCash, 1);// 增加商户充值成功记录
 					bb.put("code", 1);
 				} else {
-					insert3ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, Integer.valueOf(resultno),
-							Integer.valueOf(result.get("use_id") + ""));// 增加商户充值成功记录
+					
 					bb.put("code", 7);
 				}
 
@@ -364,14 +365,13 @@ public class AgentPhone extends BaseController {
 								sb.append(",");
 							}
 							sb.append(errorCode);
+							insert1ErrorChargeInfo(userName, orderId + i, chargeAcct[i],Integer.valueOf(chargeCash[i]), errorCode, Integer.valueOf(result.get("user_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
+							
 							if (errorCode == 1) {
-
-								insertSuccessInfo(userName, orderId + i, chargeAcct[i], Integer.valueOf(chargeCash[i]),
-										errorCode);// 增加商户充值成功记录
+								bb.put("code", 1);
+								//insertSuccessInfo(userName, orderId + i, chargeAcct[i], Integer.valueOf(chargeCash[i]),errorCode);// 增加商户充值成功记录
 							} else {
-
-								insert1ErrorChargeInfo(userName, orderId + i, chargeAcct[i],
-										Integer.valueOf(chargeCash[i]), errorCode, Integer.valueOf(result.get("user_id") + ""));// 增加商户充值成功记录
+								bb.put("code", errorCode);
 							}
 						}
 					} else if (useInterface == 2) {
@@ -389,14 +389,14 @@ public class AgentPhone extends BaseController {
 								sb.append(",");
 							}
 							sb.append(errorCode);
+							insert2ErrorChargeInfo(userName, orderId + i, chargeAcct[i],
+									Integer.valueOf(chargeCash[i]),errorCode, Integer.valueOf(result.get("user_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
 							if (errorCode == 0) {
 								bb.put("code", 1);
-								insertSuccessInfo(userName, orderId + i, chargeAcct[i], Integer.valueOf(chargeCash[i]),
-										errorCode);// 增加商户充值成功记录
+							//	insertSuccessInfo(userName, orderId + i, chargeAcct[i], Integer.valueOf(chargeCash[i]),errorCode);// 增加商户充值成功记录
 							} else {
 								bb.put("code", errorCode);
-								insert2ErrorChargeInfo(userName, orderId + i, chargeAcct[i],
-										Integer.valueOf(chargeCash[i]),errorCode, Integer.valueOf(result.get("user_id") + ""));// 增加商户充值成功记录
+								
 							}
 						}
 
@@ -418,13 +418,13 @@ public class AgentPhone extends BaseController {
 								sb.append(",");
 							}
 							sb.append(resultno);
+							insert3ErrorChargeInfo(userName, orderId + i, chargeAcct[i],
+									Integer.valueOf(chargeCash[i]), 7, Integer.valueOf(result.get("user_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
 							if ("1".equals(resultno)) {
-								insertSuccessInfo(userName, orderId + i, chargeAcct[i], Integer.valueOf(chargeCash[i]),
-										Integer.valueOf(resultno));// 增加商户充值成功记录
+								//insertSuccessInfo(userName, orderId + i, chargeAcct[i], Integer.valueOf(chargeCash[i]),Integer.valueOf(resultno));// 增加商户充值成功记录
 								bb.put("code", 1);
 							} else {
-								insert3ErrorChargeInfo(userName, orderId + i, chargeAcct[i],
-										Integer.valueOf(chargeCash[i]), 7, Integer.valueOf(result.get("user_id") + ""));// 增加商户充值成功记录
+								
 								bb.put("code", 7);
 							}
 						}

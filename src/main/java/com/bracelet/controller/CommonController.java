@@ -16,6 +16,7 @@ import com.bracelet.service.IHeartPressureService;
 import com.bracelet.service.IHeartRateService;
 import com.bracelet.service.ILocationService;
 import com.bracelet.service.IStepService;
+import com.bracelet.util.StringUtil;
 import com.bracelet.util.Utils;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
@@ -29,7 +30,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -82,6 +88,18 @@ public class CommonController extends BaseController {
 				}else{
 					updateUserBalanceByIdInsert(cxInfoError.getUser_id(), cxInfoError.getCharge_cash());
 					insertErrorChargeInfo(cxInfoError.getUsername(), info[1].split("=")[1], info[8].split("=")[1], Integer.valueOf(info[5].split("=")[1]), Integer.valueOf(info[4].split("=")[1]));// 增加商户充值成功记录
+				}
+				
+				
+				if(!StringUtil.isEmpty(cxInfoError.getRet_url())){
+					
+					String reponse = retUrl(cxInfoError.getRet_url(),cxInfoError.getUsername(),info[1].split("=")[1],cxInfoError.getCharge_cash(),info[4].split("=")[1]);
+					logger.info("A3回调下游返回="+reponse);
+					/*StringBuffer sb= new StringBuffer(cxInfoError.getRet_url());
+					sb.append("Action=CX&AgentAccount=").append(cxInfoError.getUsername()).append("&Orderid=").append(info[1].split("=")[1]).append("&Orderstatu_int=").append(info[4].split("=")[1])
+					.append("&OrderPayment=").append(cxInfoError.getCharge_cash()).append("&Errorcode=").append(info[4].split("=")[1]);
+					logger.info("第三家公司回调url="+sb.toString());
+					sendGet(sb.toString());*/
 				}
 			}
 			
@@ -140,6 +158,17 @@ public class CommonController extends BaseController {
 				updateUserBalanceByIdInsert(cxInfoError.getUser_id(), cxInfoError.getCharge_cash());
 				insertErrorChargeInfo(cxInfoError.getUsername(), ejId, cxInfoError.getCharge_acct(),  cxInfoError.getCharge_cash(), status);// 增加商户充值成功记录
 			}
+			if(!StringUtil.isEmpty(cxInfoError.getRet_url())){
+				
+				String reponse = retUrl(cxInfoError.getRet_url(),cxInfoError.getUsername(),downstreamSerialno,cxInfoError.getCharge_cash(),status+"");
+				logger.info("A1回调下游返回="+reponse);
+				
+				/*StringBuffer sb= new StringBuffer(cxInfoError.getRet_url());
+				sb.append("Action=CX&AgentAccount=").append(cxInfoError.getUsername()).append("&Orderid=").append(downstreamSerialno).append("&Orderstatu_int=").append(status)
+				.append("&OrderPayment=").append(cxInfoError.getCharge_cash()).append("&Errorcode=").append(status);
+				logger.info("第一家公司回调url="+sb.toString());
+				sendGet(sb.toString());*/
+			}
 		}
 		/*
 		 * http://xxxxxxx/xxx?userId=1&bizId=200&ejId=123188&downstreamSerialno=123188&status=2&sign=65b015dc3945c4cb677e0d39cea17237
@@ -165,10 +194,24 @@ public class CommonController extends BaseController {
 				updateUserBalanceByIdInsert(cxInfoError.getUser_id(), cxInfoError.getCharge_cash());
 				insertErrorChargeInfo(cxInfoError.getUsername(), ejId, cxInfoError.getCharge_acct(),  cxInfoError.getCharge_cash(), status);// 增加商户充值成功记录
 			}
+			
+			
+			/*
+			 * http://www.baidu.com?Action=CX&AgentAccount=api_test&Orderid=SH2009_05150001&Orderstatu_int=16&OrderPayment=3.00&Errorcode=1
+			 * */
+			if(!StringUtil.isEmpty(cxInfoError.getRet_url())){
+				String reponse = retUrl(cxInfoError.getRet_url(),cxInfoError.getUsername(),downstreamSerialno,cxInfoError.getCharge_cash(),status+"");
+				logger.info("A2回调下游返回="+reponse);
+			/*	StringBuffer sb= new StringBuffer(cxInfoError.getRet_url());
+				sb.append("Action=CX&AgentAccount=").append(cxInfoError.getUsername()).append("&Orderid=").append(downstreamSerialno).append("&Orderstatu_int=").append(status)
+				.append("&OrderPayment=").append(cxInfoError.getCharge_cash()).append("&Errorcode=").append(status);
+				logger.info("第二家公司回调url="+sb.toString());
+				sendGet(sb.toString());*/
+			}
 		}
-		/*
-		 * http://xxxxxxx/xxx?userId=1&bizId=200&ejId=123188&downstreamSerialno=123188&status=2&sign=65b015dc3945c4cb677e0d39cea17237
-		 * */
+		
+		
+		
 		
 			return "success";
 	}

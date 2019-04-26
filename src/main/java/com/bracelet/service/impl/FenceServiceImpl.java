@@ -95,13 +95,13 @@ public class FenceServiceImpl implements IFenceService {
 
 	@Override
 	public boolean insert3ErrorChargeInfo(String userName, String orderId, String chargeAcct, Integer chargeCash,
-			Integer errorCode,Integer id) {
+			Integer errorCode,Integer id, String retUrl) {
 		logger.info("insert3ErrorChargeInfo  orderid="+orderId);
 		Timestamp now = Utils.getCurrentTimestamp();
 		int i = jdbcTemplate.update(
-				"insert into business_error3_cx_info (username, order_id, charge_acct, charge_cash, createtime,error_code,user_id) values (?,?,?,?,?,?,?)",
-				new Object[] { userName, orderId, chargeAcct, chargeCash, now,errorCode,id },
-				new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER, Types.TIMESTAMP, Types.INTEGER, Types.INTEGER});
+				"insert into business_error3_cx_info (username, order_id, charge_acct, charge_cash, createtime,error_code,user_id, ret_url) values (?,?,?,?,?,?,?,?)",
+				new Object[] { userName, orderId, chargeAcct, chargeCash, now,errorCode,id,retUrl },
+				new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER, Types.TIMESTAMP, Types.INTEGER, Types.INTEGER, Types.VARCHAR});
 		return i == 1;
 	}
 
@@ -120,13 +120,13 @@ public class FenceServiceImpl implements IFenceService {
 
 	@Override
 	public boolean insert1ErrorChargeInfo(String userName, String orderId, String chargeAcct, Integer chargeCash,
-			Integer errorCode, Integer id) {
+			Integer errorCode, Integer id, String retUrl) {
 		logger.info("insert1ErrorChargeInfo  orderid="+orderId);
 		Timestamp now = Utils.getCurrentTimestamp();
 		int i = jdbcTemplate.update(
-				"insert into business_error1_cx_info (username, order_id, charge_acct, charge_cash, createtime,error_code,user_id) values (?,?,?,?,?,?,?)",
-				new Object[] { userName, orderId, chargeAcct, chargeCash, now,errorCode,id },
-				new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER, Types.TIMESTAMP, Types.INTEGER, Types.INTEGER});
+				"insert into business_error1_cx_info (username, order_id, charge_acct, charge_cash, createtime,error_code,user_id, ret_url) values (?,?,?,?,?,?,?,?)",
+				new Object[] { userName, orderId, chargeAcct, chargeCash, now,errorCode,id,retUrl },
+				new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER, Types.TIMESTAMP, Types.INTEGER, Types.INTEGER, Types.VARCHAR});
 		return i == 1;
 	}
 
@@ -145,13 +145,13 @@ public class FenceServiceImpl implements IFenceService {
 
 	@Override
 	public boolean insert2ErrorChargeInfo(String userName, String orderId, String chargeAcct, Integer chargeCash,
-			Integer errorCode, Integer id) {
+			Integer errorCode, Integer id, String retUrl) {
 		logger.info("insert2ErrorChargeInfo  orderid="+orderId);
 		Timestamp now = Utils.getCurrentTimestamp();
 		int i = jdbcTemplate.update(
-				"insert into business_error2_cx_info (username, order_id, charge_acct, charge_cash, createtime,error_code,user_id) values (?,?,?,?,?,?,?)",
-				new Object[] { userName, orderId, chargeAcct, chargeCash, now,errorCode,id },
-				new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER, Types.TIMESTAMP, Types.INTEGER, Types.INTEGER});
+				"insert into business_error2_cx_info (username, order_id, charge_acct, charge_cash, createtime,error_code,user_id, ret_url) values (?,?,?,?,?,?,?,?)",
+				new Object[] { userName, orderId, chargeAcct, chargeCash, now,errorCode,id,retUrl },
+				new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER, Types.TIMESTAMP, Types.INTEGER, Types.INTEGER, Types.VARCHAR});
 		return i == 1;
 	}
 
