@@ -314,6 +314,7 @@ public class AgentPhone extends BaseController {
 				return bb.toString();
 			}
 			Integer totalAmount = jsonObject.getIntValue("totalAmount");// 充值金额必须以元为单位
+			logger.info("批冲总金额="+totalAmount);
 			if (Integer.valueOf(result.get("blance") + "") < totalAmount) {
 				bb.put("code", 3);
 				return bb.toString();
@@ -323,7 +324,7 @@ public class AgentPhone extends BaseController {
 				return bb.toString();
 			}
 
-			String orderId = jsonObject.getString("orderId"); // 订单号必须唯一由商户自己生成
+			String batchOrderId = jsonObject.getString("batchOrderId"); // 订单号必须唯一由商户自己生成
 
 			String batchChargeAcct = jsonObject.getString("batchChargeAcct"); // 充值账号chargeCash
 			logger.info(batchChargeAcct);
@@ -339,13 +340,14 @@ public class AgentPhone extends BaseController {
 				String[] chargeAcct = batchChargeAcct.split(",");
 				String[] chargeCash = batchChargeCash.split(",");
 				String[] itemId = barchItemId.split(",");
+				String[] orderId = batchOrderId.split(",");
 
 				if (chargeAcct.length != chargeCash.length || chargeAcct.length != itemId.length) {
 					bb.put("code", 6);
 				} else {
 					StringBuffer sb = new StringBuffer();
 					StringBuffer sbOrderid = new StringBuffer();
-					updateUserBalanceById(Integer.valueOf(result.get("user_id") + ""), totalAmount); // 先扣钱
+					updateUserBalanceById(Integer.valueOf(result.get("use_id") + ""), totalAmount);
 					Integer useInterface = Integer.valueOf(result.get("id") + "");
 					
 					 String bScret = getScretKeyById(useInterface);
@@ -354,24 +356,29 @@ public class AgentPhone extends BaseController {
 					if (useInterface == 1) {
 						for (int i = 0; i < chargeAcct.length; i++) {
 
-							String reponse = A1.chongZhi(orderId + i, chargeAcct[i], Integer.valueOf(chargeCash[i]),bScret);
+							String reponse = A1.chongZhi(orderId[i], chargeAcct[i], Integer.valueOf(chargeCash[i]),bScret);
 							if (sbOrderid.length() > 0) {
 								sbOrderid.append(",");
 							}
-							sbOrderid.append(orderId + i);
+							sbOrderid.append(orderId[i]);
 							JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
-							Integer errorCode = reponseJsonObject.getInteger("errorCode"); // 1表示成功
-							if (sb.length() > 0) {
-								sb.append(",");
-							}
-							sb.append(errorCode);
-							insert1ErrorChargeInfo(userName, orderId + i, chargeAcct[i],Integer.valueOf(chargeCash[i]), errorCode, Integer.valueOf(result.get("user_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
+							Integer errorCode = reponseJsonObject.getInteger("code");
+							
+							insert1ErrorChargeInfo(userName, orderId[i], chargeAcct[i],Integer.valueOf(chargeCash[i]), errorCode, Integer.valueOf(result.get("user_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
 							
 							if (errorCode == 1) {
 								bb.put("code", 1);
+								if (sb.length() > 0) {
+									sb.append(",");
+								}
+								sb.append(1);
 								//insertSuccessInfo(userName, orderId + i, chargeAcct[i], Integer.valueOf(chargeCash[i]),errorCode);// 增加商户充值成功记录
 							} else {
 								bb.put("code", errorCode);
+								if (sb.length() > 0) {
+									sb.append(",");
+								}
+								sb.append(errorCode);
 							}
 						}
 					} else if (useInterface == 2) {
@@ -380,23 +387,27 @@ public class AgentPhone extends BaseController {
 							if (sbOrderid.length() > 0) {
 								sbOrderid.append(",");
 							}
-							sbOrderid.append(orderId + i);
-							String reponse = A2.chongZhi(dtCreate, orderId, chargeAcct[i],
+							sbOrderid.append(orderId[i]);
+							String reponse = A2.chongZhi(dtCreate,orderId[i], chargeAcct[i],
 									Integer.valueOf(chargeCash[i]), itemId[i],bScret);
 							JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
-							Integer errorCode = reponseJsonObject.getInteger("errorCode"); // 1表示成功
-							if (sb.length() > 0) {
-								sb.append(",");
-							}
-							sb.append(errorCode);
-							insert2ErrorChargeInfo(userName, orderId + i, chargeAcct[i],
-									Integer.valueOf(chargeCash[i]),errorCode, Integer.valueOf(result.get("user_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
+							Integer errorCode = reponseJsonObject.getInteger("code");
+						
+							insert2ErrorChargeInfo(userName, orderId[i], chargeAcct[i],
+									Integer.valueOf(chargeCash[i]),errorCode, Integer.valueOf(result.get("use_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
 							if (errorCode == 0) {
 								bb.put("code", 1);
+								if (sb.length() > 0) {
+									sb.append(",");
+								}
+								sb.append(1);
 							//	insertSuccessInfo(userName, orderId + i, chargeAcct[i], Integer.valueOf(chargeCash[i]),errorCode);// 增加商户充值成功记录
 							} else {
 								bb.put("code", errorCode);
-								
+								if (sb.length() > 0) {
+									sb.append(",");
+								}
+								sb.append(errorCode);
 							}
 						}
 
@@ -405,9 +416,9 @@ public class AgentPhone extends BaseController {
 							if (sbOrderid.length() > 0) {
 								sbOrderid.append(",");
 							}
-							sbOrderid.append(orderId + i);
+							sbOrderid.append(orderId[i]);
 
-							String reponse = A3.chongZhi(Utils.getYyyyMMdd(), orderId, chargeAcct[i] + i,
+							String reponse = A3.chongZhi(Utils.getYyyyMMdd(), orderId[i], chargeAcct[i] + i,
 									Integer.valueOf(chargeCash[i]), itemId[i], bScret);
 
 							JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
@@ -418,8 +429,8 @@ public class AgentPhone extends BaseController {
 								sb.append(",");
 							}
 							sb.append(resultno);
-							insert3ErrorChargeInfo(userName, orderId + i, chargeAcct[i],
-									Integer.valueOf(chargeCash[i]), 7, Integer.valueOf(result.get("user_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
+							insert3ErrorChargeInfo(userName, orderId[i], chargeAcct[i],
+									Integer.valueOf(chargeCash[i]), Integer.valueOf(resultno), Integer.valueOf(result.get("user_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
 							if ("1".equals(resultno)) {
 								//insertSuccessInfo(userName, orderId + i, chargeAcct[i], Integer.valueOf(chargeCash[i]),Integer.valueOf(resultno));// 增加商户充值成功记录
 								bb.put("code", 1);
