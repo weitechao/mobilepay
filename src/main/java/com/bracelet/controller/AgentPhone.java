@@ -297,7 +297,7 @@ public class AgentPhone extends BaseController {
 		JSONObject bb = new JSONObject();
 		try {
 			// String requestString = Des.decrypt(body);// 解密
-
+              logger.info("代理商充值接口批充="+body);
 			JSONObject jsonObject = (JSONObject) JSON.parse(body);
 			String userName = jsonObject.getString("username"); // 商户号
 
