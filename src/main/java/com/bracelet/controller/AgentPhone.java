@@ -79,7 +79,7 @@ public class AgentPhone extends BaseController {
 				return bb.toString();
 			}
 			// 这里匹配的url秘钥什么的直接写死在查询消耗性能 id从1开始
-			updateUserBalanceById(Integer.valueOf(result.get("use_id") + ""), chargeCash);
+		
 			
 			
 			Integer useInterface = Integer.valueOf(result.get("id") + "");
@@ -95,12 +95,14 @@ public class AgentPhone extends BaseController {
 				JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
 				Integer errorCode = reponseJsonObject.getInteger("code"); // 1表示成功
 				
-				insert1ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode,Integer.valueOf(result.get("use_id")+""),result.get("ret_url")+"");// 增加商户充值成功记录
+			
 				if (errorCode == 0) {
-
+					updateUserBalanceById(Integer.valueOf(result.get("use_id") + ""), chargeCash);
+					insert1ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode,Integer.valueOf(result.get("use_id")+""),result.get("ret_url")+"");// 增加商户充值成功记录
 					bb.put("code", 1);
 					//insertSuccessInfo(userName, orderId, chargeAcct, chargeCash, errorCode);// 增加商户充值成功记录
 				} else {
+					insertErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode);
 					bb.put("code", errorCode);
 				
 				}
@@ -110,11 +112,14 @@ public class AgentPhone extends BaseController {
 				String reponse = A2.chongZhi(dtCreate, orderId, chargeAcct, chargeCash, itemId, bScret);
 				JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
 				Integer errorCode = reponseJsonObject.getInteger("code");
-				insert2ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode,Integer.valueOf(result.get("use_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
+			
 				if (errorCode == 0) {
+					updateUserBalanceById(Integer.valueOf(result.get("use_id") + ""), chargeCash);
+					insert2ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode,Integer.valueOf(result.get("use_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
 					bb.put("code", 1);
 					//insertSuccessInfo(userName, orderId, chargeAcct, chargeCash, 1);// 增加商户充值成功记录
 				} else {
+					insertErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode);
 					bb.put("code", errorCode);
 				}
 			} else if (useInterface == 3) {
@@ -126,18 +131,21 @@ public class AgentPhone extends BaseController {
 				String order = reponseJsonObject.getString("order");
 				JSONObject OrderJson = (JSONObject) JSON.parse(order);
 				String resultno = OrderJson.getString("resultno");
-				insert3ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, Integer.valueOf(resultno),
-						Integer.valueOf(result.get("use_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
+			
 				if ("1".equals(resultno)) {
+					updateUserBalanceById(Integer.valueOf(result.get("use_id") + ""), chargeCash);
+					insert3ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, Integer.valueOf(resultno),
+							Integer.valueOf(result.get("use_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
 					//insertSuccessInfo(userName, orderId, chargeAcct, chargeCash, 1);// 增加商户充值成功记录
 					bb.put("code", 1);
 				} else {
-					
+					insertErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, Integer.valueOf(resultno));
 					bb.put("code", 7);
 				}
 
 			}
 		} catch (Exception e) {
+			bb.put("code", -1);
 			e.printStackTrace();
 		}
 		return bb.toString();
@@ -249,6 +257,7 @@ public class AgentPhone extends BaseController {
 			}
 
 		} catch (Exception e) {
+			bb.put("code", -1);
 			e.printStackTrace();
 		}
 
@@ -347,7 +356,7 @@ public class AgentPhone extends BaseController {
 				} else {
 					StringBuffer sb = new StringBuffer();
 					StringBuffer sbOrderid = new StringBuffer();
-					updateUserBalanceById(Integer.valueOf(result.get("use_id") + ""), totalAmount);
+					
 					Integer useInterface = Integer.valueOf(result.get("id") + "");
 					
 					 String bScret = getScretKeyById(useInterface);
@@ -364,9 +373,11 @@ public class AgentPhone extends BaseController {
 							JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
 							Integer errorCode = reponseJsonObject.getInteger("code");
 							
-							insert1ErrorChargeInfo(userName, orderId[i], chargeAcct[i],Integer.valueOf(chargeCash[i]), errorCode, Integer.valueOf(result.get("user_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
 							
 							if (errorCode == 1) {
+								updateUserBalanceById(Integer.valueOf(result.get("use_id") + ""), Integer.valueOf(chargeCash[i]));
+								insert1ErrorChargeInfo(userName, orderId[i], chargeAcct[i],Integer.valueOf(chargeCash[i]), errorCode, Integer.valueOf(result.get("user_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
+								
 								bb.put("code", 1);
 								if (sb.length() > 0) {
 									sb.append(",");
@@ -374,6 +385,7 @@ public class AgentPhone extends BaseController {
 								sb.append(1);
 								//insertSuccessInfo(userName, orderId + i, chargeAcct[i], Integer.valueOf(chargeCash[i]),errorCode);// 增加商户充值成功记录
 							} else {
+								insertErrorChargeInfo(userName, orderId[i], chargeAcct[i], Integer.valueOf(chargeCash[i]), errorCode);
 								bb.put("code", errorCode);
 								if (sb.length() > 0) {
 									sb.append(",");
@@ -393,9 +405,10 @@ public class AgentPhone extends BaseController {
 							JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
 							Integer errorCode = reponseJsonObject.getInteger("code");
 						
-							insert2ErrorChargeInfo(userName, orderId[i], chargeAcct[i],
-									Integer.valueOf(chargeCash[i]),errorCode, Integer.valueOf(result.get("use_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
 							if (errorCode == 0) {
+								updateUserBalanceById(Integer.valueOf(result.get("use_id") + ""), Integer.valueOf(chargeCash[i]));
+								insert2ErrorChargeInfo(userName, orderId[i], chargeAcct[i],Integer.valueOf(chargeCash[i]), errorCode, Integer.valueOf(result.get("user_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
+								
 								bb.put("code", 1);
 								if (sb.length() > 0) {
 									sb.append(",");
@@ -403,6 +416,7 @@ public class AgentPhone extends BaseController {
 								sb.append(1);
 							//	insertSuccessInfo(userName, orderId + i, chargeAcct[i], Integer.valueOf(chargeCash[i]),errorCode);// 增加商户充值成功记录
 							} else {
+								insertErrorChargeInfo(userName, orderId[i], chargeAcct[i], Integer.valueOf(chargeCash[i]), errorCode);
 								bb.put("code", errorCode);
 								if (sb.length() > 0) {
 									sb.append(",");
@@ -429,13 +443,15 @@ public class AgentPhone extends BaseController {
 								sb.append(",");
 							}
 							sb.append(resultno);
-							insert3ErrorChargeInfo(userName, orderId[i], chargeAcct[i],
-									Integer.valueOf(chargeCash[i]), Integer.valueOf(resultno), Integer.valueOf(result.get("user_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
+							
 							if ("1".equals(resultno)) {
+								updateUserBalanceById(Integer.valueOf(result.get("use_id") + ""), Integer.valueOf(chargeCash[i]));
+								insert3ErrorChargeInfo(userName, orderId[i], chargeAcct[i],
+										Integer.valueOf(chargeCash[i]), Integer.valueOf(resultno), Integer.valueOf(result.get("user_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
 								//insertSuccessInfo(userName, orderId + i, chargeAcct[i], Integer.valueOf(chargeCash[i]),Integer.valueOf(resultno));// 增加商户充值成功记录
 								bb.put("code", 1);
 							} else {
-								
+								insertErrorChargeInfo(userName, orderId[i], chargeAcct[i], Integer.valueOf(chargeCash[i]), Integer.valueOf(resultno));
 								bb.put("code", 7);
 							}
 						}
@@ -448,6 +464,7 @@ public class AgentPhone extends BaseController {
 				bb.put("code", 5);
 			}
 		} catch (Exception e) {
+			bb.put("code", -1);
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
