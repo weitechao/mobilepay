@@ -6,6 +6,7 @@ import com.bracelet.datasource.DataSourceChange;
 import com.bracelet.entity.CxInfo;
 import com.bracelet.entity.Fence;
 import com.bracelet.entity.OddShape;
+import com.bracelet.entity.ReturnSuccessInfo;
 
 public interface IFenceService {
 
@@ -35,5 +36,9 @@ public interface IFenceService {
 			Integer errorCode, Integer id, String retUrl);
 
 	CxInfo getCharge2ErrorInfo(String ejId);
+
+	ReturnSuccessInfo getReturnInfoByOrderId(String orderId);
+
+	boolean insertReturnSuccessfulInfo(String orderId, Integer user_id);
 
 }

@@ -9,6 +9,7 @@ import com.bracelet.entity.CxInfo;
 import com.bracelet.entity.HeartPressure;
 import com.bracelet.entity.HeartRate;
 import com.bracelet.entity.Location;
+import com.bracelet.entity.ReturnSuccessInfo;
 import com.bracelet.entity.Step;
 import com.bracelet.service.IBloodOxygenService;
 import com.bracelet.service.IBloodSugarService;
@@ -79,8 +80,15 @@ public class CommonController extends BaseController {
 			 * */
 			String[] info =body.split("&");
 			logger.info("A3回调充值状态="+info[4].split("=")[1]);
+			ReturnSuccessInfo returnInfo = fenceService.getReturnInfoByOrderId(info[1].split("=")[1]);
+			if(returnInfo!=null){
+				return "OK";
+			}
+			
 			CxInfo cxInfoError = fenceService.getCharge3ErrorInfo(info[1].split("=")[1]);
 			if(cxInfoError!=null){
+				fenceService.insertReturnSuccessfulInfo(info[1].split("=")[1],cxInfoError.getUser_id());
+				
 				if("1".equals(info[4].split("=")[1])){
 					//updateUserBalanceById(cxInfoError.getUser_id(), cxInfoError.getCharge_cash());
 					insertSuccessInfo(cxInfoError.getUsername(), info[1].split("=")[1], info[8].split("=")[1], Integer.valueOf(info[5].split("=")[1]), 1);// 增加商户充值成功记录
@@ -104,7 +112,6 @@ public class CommonController extends BaseController {
 			}
 			
 			return "OK";
-			
 			
 		}
 
@@ -150,8 +157,17 @@ public class CommonController extends BaseController {
 			@RequestParam String ejId,	@RequestParam String downstreamSerialno,
 			@RequestParam Integer status,	@RequestParam String sign) {
 		logger.info("第一家公司回调订单="+downstreamSerialno+";状态="+status);
+		
+		
+		ReturnSuccessInfo returnInfo = fenceService.getReturnInfoByOrderId(downstreamSerialno);
+		if(returnInfo!=null){
+			return "success";
+		}
+		
 		CxInfo cxInfoError = fenceService.getCharge1ErrorInfo(downstreamSerialno);
 		if(cxInfoError != null){
+			fenceService.insertReturnSuccessfulInfo(downstreamSerialno,cxInfoError.getUser_id());
+			
 			if(status==2){
 				insertSuccessInfo(cxInfoError.getUsername(), ejId, cxInfoError.getCharge_acct(),  cxInfoError.getCharge_cash(), 1);// 增加商户充值成功记录
 			}else{
@@ -186,8 +202,15 @@ public class CommonController extends BaseController {
 			@RequestParam String ejId,	@RequestParam String downstreamSerialno,
 			@RequestParam Integer status,	@RequestParam String sign) {
 		logger.info("第二家公司回调订单="+downstreamSerialno+";状态="+status);
+		
+		ReturnSuccessInfo returnInfo = fenceService.getReturnInfoByOrderId(downstreamSerialno);
+		if(returnInfo!=null){
+			return "success";
+		}
+		
 		CxInfo cxInfoError = fenceService.getCharge2ErrorInfo(downstreamSerialno);
 		if(cxInfoError != null){
+			fenceService.insertReturnSuccessfulInfo(downstreamSerialno,cxInfoError.getUser_id());
 			if(status==2){
 				insertSuccessInfo(cxInfoError.getUsername(), ejId, cxInfoError.getCharge_acct(),  cxInfoError.getCharge_cash(), 1);// 增加商户充值成功记录
 			}else{

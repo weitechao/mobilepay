@@ -4,6 +4,7 @@ import com.bracelet.datasource.DataSourceChange;
 import com.bracelet.entity.CxInfo;
 import com.bracelet.entity.Fence;
 import com.bracelet.entity.OddShape;
+import com.bracelet.entity.ReturnSuccessInfo;
 import com.bracelet.entity.UserInfo;
 import com.bracelet.service.IFenceService;
 import com.bracelet.service.IFencelogService;
@@ -166,6 +167,29 @@ public class FenceServiceImpl implements IFenceService {
 			logger.info("business_error2_cx_info return null.user_id:" + ejId);
 		}
 		return null;
+	}
+
+	@Override
+	public ReturnSuccessInfo getReturnInfoByOrderId(String orderId) {
+		String sql = "select id,order_id,createtime,user_id from return_success_info where order_id=?  LIMIT 1";
+		List<ReturnSuccessInfo> list = jdbcTemplate.query(sql, new Object[] { orderId}, new BeanPropertyRowMapper<ReturnSuccessInfo>(ReturnSuccessInfo.class));
+
+		if (list != null && !list.isEmpty()) {
+			return list.get(0);
+		} else {
+			logger.info("getReturnInfoByOrderId return null.user_id:" + orderId);
+		}
+		return null;
+	}
+
+	@Override
+	public boolean insertReturnSuccessfulInfo(String orderId, Integer user_id) {
+		Timestamp now = Utils.getCurrentTimestamp();
+		int i = jdbcTemplate.update(
+				"insert into return_success_info (order_id, user_id, createtime) values (?,?,?)",
+				new Object[] { orderId, user_id, now },
+				new int[] { Types.VARCHAR, Types.INTEGER, Types.TIMESTAMP});
+		return i == 1;
 	}
 
 }

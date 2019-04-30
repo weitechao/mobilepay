@@ -132,7 +132,7 @@ public class AgentPhone extends BaseController {
 				JSONObject OrderJson = (JSONObject) JSON.parse(order);
 				String resultno = OrderJson.getString("resultno");
 			
-				if ("1".equals(resultno)) {
+				if ("1".equals(resultno)||"0".equals(resultno)||"2".equals(resultno)) {
 					updateUserBalanceById(Integer.valueOf(result.get("use_id") + ""), chargeCash);
 					insert3ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, Integer.valueOf(resultno),
 							Integer.valueOf(result.get("use_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
@@ -140,7 +140,7 @@ public class AgentPhone extends BaseController {
 					bb.put("code", 1);
 				} else {
 					insertErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, Integer.valueOf(resultno));
-					bb.put("code", 7);
+					bb.put("code", resultno);
 				}
 
 			}
@@ -444,7 +444,7 @@ public class AgentPhone extends BaseController {
 							}
 							sb.append(resultno);
 							
-							if ("1".equals(resultno)) {
+							if ("1".equals(resultno)||"0".equals(resultno)||"2".equals(resultno)) {
 								updateUserBalanceById(Integer.valueOf(result.get("use_id") + ""), Integer.valueOf(chargeCash[i]));
 								insert3ErrorChargeInfo(userName, orderId[i], chargeAcct[i],
 										Integer.valueOf(chargeCash[i]), Integer.valueOf(resultno), Integer.valueOf(result.get("user_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
@@ -452,7 +452,7 @@ public class AgentPhone extends BaseController {
 								bb.put("code", 1);
 							} else {
 								insertErrorChargeInfo(userName, orderId[i], chargeAcct[i], Integer.valueOf(chargeCash[i]), Integer.valueOf(resultno));
-								bb.put("code", 7);
+								bb.put("code", resultno);
 							}
 						}
 					}
