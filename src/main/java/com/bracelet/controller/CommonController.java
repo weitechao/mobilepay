@@ -101,7 +101,7 @@ public class CommonController extends BaseController {
 				
 				if(!StringUtil.isEmpty(cxInfoError.getRet_url())){
 					
-					String reponse = retUrl(cxInfoError.getRet_url(),cxInfoError.getUsername(),info[1].split("=")[1],cxInfoError.getCharge_cash(),info[4].split("=")[1]);
+					String reponse = retUrl(cxInfoError.getRet_url(),cxInfoError.getUsername(),info[1].split("=")[1],cxInfoError.getCharge_cash(),info[4].split("=")[1],info[0].split("=")[1]);
 					logger.info("A3回调下游返回="+reponse);
 					/*StringBuffer sb= new StringBuffer(cxInfoError.getRet_url());
 					sb.append("Action=CX&AgentAccount=").append(cxInfoError.getUsername()).append("&Orderid=").append(info[1].split("=")[1]).append("&Orderstatu_int=").append(info[4].split("=")[1])
@@ -155,7 +155,7 @@ public class CommonController extends BaseController {
 	@RequestMapping("/getReturl")
 	public String returl2(@RequestParam String userId,@RequestParam String bizId,
 			@RequestParam String ejId,	@RequestParam String downstreamSerialno,
-			@RequestParam Integer status,	@RequestParam String sign) {
+			@RequestParam Integer status,	@RequestParam String sign,@RequestParam(value = "voucher", required = false) String voucher) {
 		logger.info("第一家公司回调订单="+downstreamSerialno+";状态="+status);
 		
 		
@@ -175,9 +175,15 @@ public class CommonController extends BaseController {
 				insertErrorChargeInfo(cxInfoError.getUsername(), ejId, cxInfoError.getCharge_acct(),  cxInfoError.getCharge_cash(), status);// 增加商户充值成功记录
 			}
 			if(!StringUtil.isEmpty(cxInfoError.getRet_url())){
+				if(!StringUtil.isEmpty(voucher)){
+					logger.info("第一家公司回调订单="+downstreamSerialno+";状态="+status+";流水号="+voucher);
+					String reponse = retUrl(cxInfoError.getRet_url(),cxInfoError.getUsername(),downstreamSerialno,cxInfoError.getCharge_cash(),status+"",voucher);
+					logger.info("A1回调下游返回="+reponse);
+				}else{
+					String reponse = retUrl(cxInfoError.getRet_url(),cxInfoError.getUsername(),downstreamSerialno,cxInfoError.getCharge_cash(),status+"","0");
+					logger.info("A1回调下游返回="+reponse);
+				}
 				
-				String reponse = retUrl(cxInfoError.getRet_url(),cxInfoError.getUsername(),downstreamSerialno,cxInfoError.getCharge_cash(),status+"");
-				logger.info("A1回调下游返回="+reponse);
 				
 				/*StringBuffer sb= new StringBuffer(cxInfoError.getRet_url());
 				sb.append("Action=CX&AgentAccount=").append(cxInfoError.getUsername()).append("&Orderid=").append(downstreamSerialno).append("&Orderstatu_int=").append(status)
@@ -200,7 +206,7 @@ public class CommonController extends BaseController {
 	@RequestMapping("/retBak")
 	public String retBak(@RequestParam String userId,@RequestParam String bizId,
 			@RequestParam String ejId,	@RequestParam String downstreamSerialno,
-			@RequestParam Integer status,	@RequestParam String sign) {
+			@RequestParam Integer status,	@RequestParam String sign, @RequestParam(value = "voucher", required = false) String voucher) {
 		logger.info("第二家公司回调订单="+downstreamSerialno+";状态="+status);
 		
 		ReturnSuccessInfo returnInfo = fenceService.getReturnInfoByOrderId(downstreamSerialno);
@@ -223,13 +229,15 @@ public class CommonController extends BaseController {
 			 * http://www.baidu.com?Action=CX&AgentAccount=api_test&Orderid=SH2009_05150001&Orderstatu_int=16&OrderPayment=3.00&Errorcode=1
 			 * */
 			if(!StringUtil.isEmpty(cxInfoError.getRet_url())){
-				String reponse = retUrl(cxInfoError.getRet_url(),cxInfoError.getUsername(),downstreamSerialno,cxInfoError.getCharge_cash(),status+"");
+				if(!StringUtil.isEmpty(voucher)){
+					logger.info("第二家公司回调订单="+downstreamSerialno+";状态="+status+";流水号="+voucher);
+					String reponse = retUrl(cxInfoError.getRet_url(),cxInfoError.getUsername(),downstreamSerialno,cxInfoError.getCharge_cash(),status+"",voucher);
+				logger.info("A2回调下游成功返回="+reponse);
+				}else{
+					String reponse = retUrl(cxInfoError.getRet_url(),cxInfoError.getUsername(),downstreamSerialno,cxInfoError.getCharge_cash(),status+"","0");
 				logger.info("A2回调下游返回="+reponse);
-			/*	StringBuffer sb= new StringBuffer(cxInfoError.getRet_url());
-				sb.append("Action=CX&AgentAccount=").append(cxInfoError.getUsername()).append("&Orderid=").append(downstreamSerialno).append("&Orderstatu_int=").append(status)
-				.append("&OrderPayment=").append(cxInfoError.getCharge_cash()).append("&Errorcode=").append(status);
-				logger.info("第二家公司回调url="+sb.toString());
-				sendGet(sb.toString());*/
+				
+				}
 			}
 		}
 		

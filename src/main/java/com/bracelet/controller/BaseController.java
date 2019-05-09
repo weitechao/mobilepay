@@ -126,7 +126,7 @@ public class BaseController {
 	}
 	
 	/*回调*/
-	public static String retUrl(String url,String userName,String orderid,Integer charge_cash,String code) {
+	public static String retUrl(String url,String userName,String orderid,Integer charge_cash,String code,String sn) {
 		
 		
 		String result = "";
@@ -136,7 +136,7 @@ public class BaseController {
 			
 			StringBuffer sb= new StringBuffer(url);
 			sb.append("Action=CX&AgentAccount=").append(userName).append("&Orderid=").append(orderid).append("&Orderstatu_int=").append(code)
-			.append("&OrderPayment=").append(charge_cash).append("&Errorcode=").append(code);
+			.append("&OrderPayment=").append(charge_cash).append("&Errorcode=").append(code).append("&sn=").append(sn);
 			
 			
 			URL realUrl = new URL(sb.toString());
