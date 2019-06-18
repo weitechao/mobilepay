@@ -24,6 +24,7 @@ import com.bracelet.util.A1;
 import com.bracelet.util.A1_1;
 import com.bracelet.util.A2;
 import com.bracelet.util.A3;
+import com.bracelet.util.A4;
 import com.bracelet.util.Des;
 import com.bracelet.util.HttpClientGet;
 import com.bracelet.util.StringUtil;
@@ -143,6 +144,46 @@ public class AgentPhone extends BaseController {
 					bb.put("code", resultno);
 				}
 
+			}else if(useInterface == 4){
+
+
+				String itemId = jsonObject.getString("itemId");// 商品编号
+                String isp = jsonObject.getString("isp");//运营商编码
+                String province = jsonObject.getString("province");// 省份
+                String area = jsonObject.getString("area");// 区域
+                
+				String reponse = A4.chongZhi(Utils.getYyyyMMdd(), orderId, chargeAcct, chargeCash, itemId, bScret, isp, province, area);
+				
+				if("ok".equals(reponse)){
+
+					updateUserBalanceById(Integer.valueOf(result.get("use_id") + ""), chargeCash);
+					insert4ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, 1,
+							Integer.valueOf(result.get("use_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
+					//insertSuccessInfo(userName, orderId, chargeAcct, chargeCash, 1);// 增加商户充值成功记录
+					bb.put("code", 1);
+				}else{
+					insertErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, 0);
+					bb.put("code", 0);
+				}
+
+				/*JSONObject reponseJsonObject = (JSONObject) JSON.parse(reponse);
+				String order = reponseJsonObject.getString("order");
+				JSONObject OrderJson = (JSONObject) JSON.parse(order);
+				String resultno = OrderJson.getString("resultno");
+			
+				if ("1".equals(resultno)||"0".equals(resultno)||"2".equals(resultno)) {
+					updateUserBalanceById(Integer.valueOf(result.get("use_id") + ""), chargeCash);
+					insert3ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, Integer.valueOf(resultno),
+							Integer.valueOf(result.get("use_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
+					//insertSuccessInfo(userName, orderId, chargeAcct, chargeCash, 1);// 增加商户充值成功记录
+					bb.put("code", 1);
+				} else {
+					insertErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, Integer.valueOf(resultno));
+					bb.put("code", resultno);
+				}
+*/
+			
+				
 			}
 		} catch (Exception e) {
 			bb.put("code", -1);

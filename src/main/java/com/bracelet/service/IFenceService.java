@@ -41,4 +41,9 @@ public interface IFenceService {
 
 	boolean insertReturnSuccessfulInfo(String orderId, Integer user_id);
 
+	boolean insert4ErrorChargeInfo(String userName, String orderId, String chargeAcct, Integer chargeCash,
+			Integer errorCode, Integer id, String retUrl);
+
+	CxInfo getCharge4ErrorInfo(String orderNo);
+
 }

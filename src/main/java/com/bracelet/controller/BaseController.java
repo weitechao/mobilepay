@@ -111,6 +111,12 @@ public class BaseController {
 			Integer errorCode) {
 		fenceService.insertPreviousLevelErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode);// 增加商户充值失败记录
 	}
+	
+	public void insert4ErrorChargeInfo(String userName, String orderId, String chargeAcct, Integer chargeCash,
+			Integer errorCode,Integer id, String retUrl) {
+		fenceService.insert4ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode,id, retUrl);// 增加商户充值失败记录
+	}
+	
 	public void insert3ErrorChargeInfo(String userName, String orderId, String chargeAcct, Integer chargeCash,
 			Integer errorCode,Integer id, String retUrl) {
 		fenceService.insert3ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode,id, retUrl);// 增加商户充值失败记录

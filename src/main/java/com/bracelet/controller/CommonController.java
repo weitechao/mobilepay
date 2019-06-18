@@ -17,6 +17,7 @@ import com.bracelet.service.IHeartPressureService;
 import com.bracelet.service.IHeartRateService;
 import com.bracelet.service.ILocationService;
 import com.bracelet.service.IStepService;
+import com.bracelet.util.AESOperator;
 import com.bracelet.util.StringUtil;
 import com.bracelet.util.Utils;
 import org.apache.commons.codec.binary.Base64;
@@ -60,6 +61,64 @@ public class CommonController extends BaseController {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
+	
+	//第四个公司回调
+	@ResponseBody
+	@RequestMapping(value = "/a4", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	public String a4(@RequestBody String body) {
+		logger.info("第四家运营商回调接口数据="+body);
+		try {
+		JSONObject reponseJsonObject = (JSONObject) JSON.parse(body);
+	//	String merId = reponseJsonObject.getString("merId");
+		String sign = reponseJsonObject.getString("sign");
+		
+		 JSONObject	OrderJson = (JSONObject) JSON.parse(AESOperator.decrypt(sign));
+		
+		String orderNo = OrderJson.getString("orderNo");
+		String status = OrderJson.getString("status");
+		String voucher = OrderJson.getString("voucher");
+		
+		
+		
+		logger.info("A4回调充值订单号状态="+orderNo+","+status);
+		ReturnSuccessInfo returnInfo = fenceService.getReturnInfoByOrderId(orderNo);
+		if(returnInfo!=null){
+			return "OK";
+		}
+		
+		CxInfo cxInfoError = fenceService.getCharge4ErrorInfo(orderNo);
+		if(cxInfoError!=null){
+			fenceService.insertReturnSuccessfulInfo(orderNo,cxInfoError.getUser_id());
+			
+			if("5".equals(status)){
+				//updateUserBalanceById(cxInfoError.getUser_id(), cxInfoError.getCharge_cash());
+				insertSuccessInfo(cxInfoError.getUsername(), orderNo,cxInfoError.getCharge_acct(), cxInfoError.getCharge_cash(), 1);// 增加商户充值成功记录
+				//String orderId, String chargeAcct, Integer chargeCash,Integer errorCode
+				//updateUserBalanceById(arr[3], chargeCash);
+			}else{
+				updateUserBalanceByIdInsert(cxInfoError.getUser_id(), cxInfoError.getCharge_cash());
+				insertErrorChargeInfo(cxInfoError.getUsername(),orderNo,cxInfoError.getCharge_acct(), cxInfoError.getCharge_cash(), Integer.valueOf(status));// 增加商户充值成功记录
+			}
+			if(!StringUtil.isEmpty(cxInfoError.getRet_url())){
+				
+				String reponse = retUrl(cxInfoError.getRet_url(),cxInfoError.getUsername(),orderNo,cxInfoError.getCharge_cash(),status, voucher);
+				//String url,String userName,String orderid,Integer charge_cash,String code,String sn
+				logger.info("A4回调下游返回="+reponse);
+				/*StringBuffer sb= new StringBuffer(cxInfoError.getRet_url());
+				sb.append("Action=CX&AgentAccount=").append(cxInfoError.getUsername()).append("&Orderid=").append(info[1].split("=")[1]).append("&Orderstatu_int=").append(info[4].split("=")[1])
+				.append("&OrderPayment=").append(cxInfoError.getCharge_cash()).append("&Errorcode=").append(info[4].split("=")[1]);
+				logger.info("第三家公司回调url="+sb.toString());
+				sendGet(sb.toString());*/
+			}
+		}
+		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "OK";
+		
+	}
 	
 	// 代理商充值接口
 		@ResponseBody
