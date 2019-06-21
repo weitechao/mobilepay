@@ -153,13 +153,12 @@ public class AgentPhone extends BaseController {
                 String area = jsonObject.getString("area");// 区域
                 
 				String reponse = A4.chongZhi(Utils.getYyyyMMdd(), orderId, chargeAcct, chargeCash, itemId, bScret, isp, province, area);
-				
+				logger.info("第四家充值返回="+reponse);
 				if("ok".equals(reponse)){
 
 					updateUserBalanceById(Integer.valueOf(result.get("use_id") + ""), chargeCash);
 					insert4ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, 1,
 							Integer.valueOf(result.get("use_id") + ""),result.get("ret_url")+"");// 增加商户充值成功记录
-					//insertSuccessInfo(userName, orderId, chargeAcct, chargeCash, 1);// 增加商户充值成功记录
 					bb.put("code", 1);
 				}else{
 					insertErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, 0);

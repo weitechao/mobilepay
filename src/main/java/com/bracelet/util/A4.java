@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +42,7 @@ userId:589
 //	private static final String privateKey = "fc939a8f2a2276e65395478fa55a1013cae4e284fefc9c28c5b80a24903b4551";
 	private static final String userId = "589";
 	//private static final String itemId = "gd_chhf";//商品编号
-	private static final String chongZhiUrl = "http://120.79.5.45:8089/recharge/push";//test url
+	private static final String chongZhiUrl = "http://120.79.5.45:8080/recharge/push";//test url
 	//private static final String chongZhiUrl = "http://120.79.5.45:8080/recharge/push";//正式url
 	private static final String chaXunUrl = "http://120.79.5.45:8080/recharge/query/order";
 //	private static final String retUrl = "http://121.201.119.75:9999/mobilepay/common/returl?";
@@ -56,10 +57,10 @@ userId:589
 		jsona.put("province", province);
 		jsona.put("area", area);
 		jsona.put("datetime", dtCreate);
-		jsona.put("notifyUrl", "");
+		jsona.put("notifyUrl", "http://121.201.119.75:8080/mobilepay/common/a4");
 		String jsonaString = jsona.toString();// 签名原文
 		logger.info("jsonaStringA4=" + jsonaString);
-		String sign = AESOperator.encrypt(jsonaString);
+		String sign = URLEncoder.encode(AESOperator.encrypt(jsonaString), "utf-8");
        logger.info("A4  AESOperator 加密"+sign);
 		JSONObject jsonAll = new JSONObject();
 		jsonAll.put("sign", sign);
@@ -134,27 +135,34 @@ userId:589
 		return result;
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
          JSONObject jsona = new JSONObject();
 		
-		jsona.put("phone", "");
-		jsona.put("price", chargeCash);
-		jsona.put("isp", isp);
-		jsona.put("orderNo", orderId);
-		jsona.put("province", province);
-		jsona.put("area", area);
-		jsona.put("datetime", dtCreate);
-		jsona.put("notifyUrl", "");
+		jsona.put("phone", "13510181600");
+		jsona.put("price", "10");
+		jsona.put("isp", "1");
+		jsona.put("orderNo", "0115556331");
+		jsona.put("province", "广东省");
+		jsona.put("area", "广东深圳");
+		jsona.put("datetime", Utils.getYyyyMMdd());
+		jsona.put("notifyUrl", "http://www.baidu.com");
 		String jsonaString = jsona.toString();// 签名原文
 		logger.info("jsonaStringA4=" + jsonaString);
+		
 		String sign = AESOperator.encrypt(jsonaString);
-       logger.info("A4  AESOperator 加密"+sign);
+		
+		String urlString = URLEncoder.encode(sign, "utf-8");  //输出%C4%E3%BA%C3
+		System.out.println("URLEncoder="+urlString);
+		
+       logger.info("A4_AESOperator_加密="+sign);
 		JSONObject jsonAll = new JSONObject();
-		jsonAll.put("sign", sign);
+		jsonAll.put("sign", urlString);
 		jsonAll.put("merId", "156075319454001");
 		//jsonAll.put("busiBody", jsona);
 		String jsonAllStr = JSONObject.toJSONString(jsonAll);
 		logger.info("A4 post发送的数据="+jsonAllStr);
+		
 		String reponse = sendPost(chongZhiUrl, jsonAllStr);
+		System.out.println("reponse返回="+reponse);
 	}
 }

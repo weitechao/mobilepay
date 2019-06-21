@@ -91,10 +91,8 @@ public class CommonController extends BaseController {
 			fenceService.insertReturnSuccessfulInfo(orderNo,cxInfoError.getUser_id());
 			
 			if("5".equals(status)){
-				//updateUserBalanceById(cxInfoError.getUser_id(), cxInfoError.getCharge_cash());
 				insertSuccessInfo(cxInfoError.getUsername(), orderNo,cxInfoError.getCharge_acct(), cxInfoError.getCharge_cash(), 1);// 增加商户充值成功记录
-				//String orderId, String chargeAcct, Integer chargeCash,Integer errorCode
-				//updateUserBalanceById(arr[3], chargeCash);
+				
 			}else{
 				updateUserBalanceByIdInsert(cxInfoError.getUser_id(), cxInfoError.getCharge_cash());
 				insertErrorChargeInfo(cxInfoError.getUsername(),orderNo,cxInfoError.getCharge_acct(), cxInfoError.getCharge_cash(), Integer.valueOf(status));// 增加商户充值成功记录
@@ -102,13 +100,8 @@ public class CommonController extends BaseController {
 			if(!StringUtil.isEmpty(cxInfoError.getRet_url())){
 				
 				String reponse = retUrl(cxInfoError.getRet_url(),cxInfoError.getUsername(),orderNo,cxInfoError.getCharge_cash(),status, voucher);
-				//String url,String userName,String orderid,Integer charge_cash,String code,String sn
+			
 				logger.info("A4回调下游返回="+reponse);
-				/*StringBuffer sb= new StringBuffer(cxInfoError.getRet_url());
-				sb.append("Action=CX&AgentAccount=").append(cxInfoError.getUsername()).append("&Orderid=").append(info[1].split("=")[1]).append("&Orderstatu_int=").append(info[4].split("=")[1])
-				.append("&OrderPayment=").append(cxInfoError.getCharge_cash()).append("&Errorcode=").append(info[4].split("=")[1]);
-				logger.info("第三家公司回调url="+sb.toString());
-				sendGet(sb.toString());*/
 			}
 		}
 		
