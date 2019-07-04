@@ -1,74 +1,33 @@
-2019-06-20 16:02:43,056 [main] INFO  A4 - jsonaStringA4={"area":"广东深圳","datetime":"2019-06-20 16:02:43","orderNo":"0115556330","province":"广东省","phone":"13510181600","price":"10","isp":"1","notifyUrl":"http://www.baidu.com"}
-2019-06-20 16:02:43,648 [main] INFO  A4 - A4_AESOperator_加密=BI6IwDHSGlltNTmdBjv9+wyVPFsVz9nynSuNZEesalb3xOZdrQ6QF4HdnWnVIo00CjtEq5sQi9yn
-/w8Ot02jAl8JXdJyS3WyYdq4TW6T1GRnLCjyX6g3n19cDLnRI0EXD/vuDSSW1uK+joxo6xMcevo4
-DOso6IpJiKEQ8Ph7Yt6AI0+bpQDYXiu097UAt2UtGcBHbFI3V223nYYDAe1Xga2aeu28nptYMn90
-BkSE3fJTbqcSpIKpm2Zlyw8Q+dng
-2019-06-20 16:02:43,649 [main] INFO  A4 - A4 post发送的数据={"sign":"BI6IwDHSGlltNTmdBjv9+wyVPFsVz9nynSuNZEesalb3xOZdrQ6QF4HdnWnVIo00CjtEq5sQi9yn\r\n/w8Ot02jAl8JXdJyS3WyYdq4TW6T1GRnLCjyX6g3n19cDLnRI0EXD/vuDSSW1uK+joxo6xMcevo4\r\nDOso6IpJiKEQ8Ph7Yt6AI0+bpQDYXiu097UAt2UtGcBHbFI3V223nYYDAe1Xga2aeu28nptYMn90\r\nBkSE3fJTbqcSpIKpm2Zlyw8Q+dng","merId":"156075319454001"}
-2019-06-20 16:04:29,794 [main] INFO  A4 - jsonaStringA4={"area":"广东深圳","datetime":"2019-06-20 16:04:29","orderNo":"0115556330","province":"广东省","phone":"13510181600","price":"10","isp":"1","notifyUrl":"http://www.baidu.com"}
-2019-06-20 16:04:30,039 [main] INFO  A4 - A4_AESOperator_加密=BI6IwDHSGlltNTmdBjv9+wyVPFsVz9nynSuNZEesalb3xOZdrQ6QF4HdnWnVIo00k80SRjWoMgB2
-uuc3I0Q9wFZDvjBYMdZt2iE4+/xPr0RdGmvaPwyD6I1FNV8XPrGRPL30z0upwxErvIDL53JSUVWp
-FV8y9b/jl92yOEgd1RTxf8d9OgWuBGuV2NmaUQdLqde9u3hHHmDBSBbYa5QjYwX1aUCRNfVLIB3e
-x4tR92nU824tI86xwk68nv9a+sYM
-2019-06-20 16:04:30,039 [main] INFO  A4 - A4 post发送的数据={"sign":"BI6IwDHSGlltNTmdBjv9+wyVPFsVz9nynSuNZEesalb3xOZdrQ6QF4HdnWnVIo00k80SRjWoMgB2\r\nuuc3I0Q9wFZDvjBYMdZt2iE4+/xPr0RdGmvaPwyD6I1FNV8XPrGRPL30z0upwxErvIDL53JSUVWp\r\nFV8y9b/jl92yOEgd1RTxf8d9OgWuBGuV2NmaUQdLqde9u3hHHmDBSBbYa5QjYwX1aUCRNfVLIB3e\r\nx4tR92nU824tI86xwk68nv9a+sYM","merId":"156075319454001"}
-2019-06-20 16:11:04,641 [main] INFO  A4 - jsonaStringA4={"area":"广东深圳","datetime":"2019-06-20 16:11:04","orderNo":"0115556330","province":"广东省","phone":"13510181600","price":"10","isp":"1","notifyUrl":"http://www.baidu.com"}
-2019-06-20 16:11:04,888 [main] INFO  A4 - A4_AESOperator_加密=KqkIeYp6BdgEpklF5AXk/lMwiVPzKpiwVVrPIA9UNA9Dm4HFakXugTUIf5rIVQurYMpRqiPmjDVY
-4Ye7231dQOVbLhh3pFvMv8l1a5tYFq/kO5QIRdVE5JzC9RBgYJtDINc/ZK+HV3R+3SmNnwbA/Kmv
-PE+SCq3kWyaLu9SgX7BT/h1GZBhyIgi+qwAb2i850mRioKGbnb29SFWOuHBxU+PZ9pAZLODFQgEf
-c1/1YlpronaqXdKXar2rtvIA2HqplIPMiIBCf1TCKw8Jez2W/IvmVo+hkH5RGaWOXeTZ5r11Xf0R
-dYgHd3XNGspEx1EHViY/r/UT6o1S09ZaA2SP5frSm/1sHmU+rneMx5Tydst9lR0zBnTyONk6DZ3n
-geCksEwFy/xcvcNv9FJWWykCrMHUAgLA/9FYzzXoLjeqgmcY1r0HMxXubMEKZbspoqRB
-2019-06-20 16:11:04,888 [main] INFO  A4 - A4 post发送的数据={"sign":"KqkIeYp6BdgEpklF5AXk/lMwiVPzKpiwVVrPIA9UNA9Dm4HFakXugTUIf5rIVQurYMpRqiPmjDVY\r\n4Ye7231dQOVbLhh3pFvMv8l1a5tYFq/kO5QIRdVE5JzC9RBgYJtDINc/ZK+HV3R+3SmNnwbA/Kmv\r\nPE+SCq3kWyaLu9SgX7BT/h1GZBhyIgi+qwAb2i850mRioKGbnb29SFWOuHBxU+PZ9pAZLODFQgEf\r\nc1/1YlpronaqXdKXar2rtvIA2HqplIPMiIBCf1TCKw8Jez2W/IvmVo+hkH5RGaWOXeTZ5r11Xf0R\r\ndYgHd3XNGspEx1EHViY/r/UT6o1S09ZaA2SP5frSm/1sHmU+rneMx5Tydst9lR0zBnTyONk6DZ3n\r\ngeCksEwFy/xcvcNv9FJWWykCrMHUAgLA/9FYzzXoLjeqgmcY1r0HMxXubMEKZbspoqRB","merId":"156075319454001"}
-2019-06-20 16:13:46,073 [main] INFO  A4 - jsonaStringA4={"area":"广东深圳","datetime":"2019-06-20 16:13:46","orderNo":"0115556330","province":"广东省","phone":"13510181600","price":"10","isp":"1","notifyUrl":"http://www.baidu.com"}
-2019-06-20 16:13:46,301 [main] INFO  A4 - A4_AESOperator_加密=BI6IwDHSGlltNTmdBjv9+wyVPFsVz9nynSuNZEesalb3xOZdrQ6QF4HdnWnVIo004fp1IS39ABQw
-zlkpW5QxjQQnWHP0N4rLq+FgVhACPwiaZlqpFGRfjOgwVqirpcKISpyAZ4bluzMc6bV3LCcyxYyK
-ev+PGeNg+zbsFw1EtGET76XLdz5M5Y8AdkToWzTEzgFKD3plL8yanTdbH/C2ZOc0AP+7yK9xgLep
-giokPUvJAWAgRE+22TLmi8oYh0fD
-2019-06-20 16:13:46,301 [main] INFO  A4 - A4 post发送的数据={"sign":"BI6IwDHSGlltNTmdBjv9+wyVPFsVz9nynSuNZEesalb3xOZdrQ6QF4HdnWnVIo004fp1IS39ABQw\r\nzlkpW5QxjQQnWHP0N4rLq+FgVhACPwiaZlqpFGRfjOgwVqirpcKISpyAZ4bluzMc6bV3LCcyxYyK\r\nev+PGeNg+zbsFw1EtGET76XLdz5M5Y8AdkToWzTEzgFKD3plL8yanTdbH/C2ZOc0AP+7yK9xgLep\r\ngiokPUvJAWAgRE+22TLmi8oYh0fD","merId":"156075319454001"}
-2019-06-20 16:15:12,301 [main] INFO  A4 - jsonaStringA4={"area":"广东深圳","datetime":"2019-06-20 16:15:12","orderNo":"0115556330","province":"广东省","phone":"13510181600","price":"10","isp":"1","notifyUrl":"http://www.baidu.com"}
-2019-06-20 16:15:12,549 [main] INFO  A4 - A4_AESOperator_加密=BI6IwDHSGlltNTmdBjv9+wyVPFsVz9nynSuNZEesalb3xOZdrQ6QF4HdnWnVIo005SzPClc+p9Ur
-aUo7j8CVJGnFQrAKr1pdE0MtfFWATtDaetJZDLbKxS29MxL/BRub8L0ijzyocFc1DjzjevMe4Dsz
-J6Fe/eQH9f2wi1lGGvFZYSfyA2VsdKiEIQiEXDL5p9jvIrLSAYONraNbJCDP0RdutxHyYww5kRZ1
-sOgz6e5MwV/0g9AAhFZ4CUc4QuIz
-2019-06-20 16:15:12,549 [main] INFO  A4 - A4 post发送的数据={"sign":"BI6IwDHSGlltNTmdBjv9%2BwyVPFsVz9nynSuNZEesalb3xOZdrQ6QF4HdnWnVIo005SzPClc%2Bp9Ur%0D%0AaUo7j8CVJGnFQrAKr1pdE0MtfFWATtDaetJZDLbKxS29MxL%2FBRub8L0ijzyocFc1DjzjevMe4Dsz%0D%0AJ6Fe%2FeQH9f2wi1lGGvFZYSfyA2VsdKiEIQiEXDL5p9jvIrLSAYONraNbJCDP0RdutxHyYww5kRZ1%0D%0AsOgz6e5MwV%2F0g9AAhFZ4CUc4QuIz","merId":"156075319454001"}
-2019-06-20 16:19:16,420 [main] INFO  A4 - jsonaStringA4={"area":"广东深圳","datetime":"2019-06-20 16:19:16","orderNo":"0115556330","province":"广东省","phone":"13510181600","price":"10","isp":"1","notifyUrl":"http://www.baidu.com"}
-2019-06-20 16:19:16,662 [main] INFO  A4 - A4_AESOperator_加密=BI6IwDHSGlltNTmdBjv9+wyVPFsVz9nynSuNZEesalb3xOZdrQ6QF4HdnWnVIo00vlUSLsEt6mM5
-OTW80l+yiwu0rmvvRG8x+LH5Syu8J2iX7X6zUpoMp4Y21Wd96xX7lpTQ8q7Dob6qWzaO7IxFrNcA
-8uDjz+pKY3/1uoj8qZzgktOu2wlGUPuqI6ENfVVIcPhXd1qdY8tFxEyPmRYskjBq1AfVMPmmw3fV
-X0MZnuUh30yOSwVr+6ESLEPUim2F
-2019-06-20 16:19:16,662 [main] INFO  A4 - A4 post发送的数据={"sign":"BI6IwDHSGlltNTmdBjv9%2BwyVPFsVz9nynSuNZEesalb3xOZdrQ6QF4HdnWnVIo00vlUSLsEt6mM5%0D%0AOTW80l%2Byiwu0rmvvRG8x%2BLH5Syu8J2iX7X6zUpoMp4Y21Wd96xX7lpTQ8q7Dob6qWzaO7IxFrNcA%0D%0A8uDjz%2BpKY3%2F1uoj8qZzgktOu2wlGUPuqI6ENfVVIcPhXd1qdY8tFxEyPmRYskjBq1AfVMPmmw3fV%0D%0AX0MZnuUh30yOSwVr%2B6ESLEPUim2F","merId":"156075319454001"}
-2019-06-20 16:21:08,263 [main] INFO  A4 - jsonaStringA4={"area":"广东深圳","datetime":"2019-06-20 16:21:08","orderNo":"0115556330","province":"广东省","phone":"13510181600","price":"10","isp":"1","notifyUrl":"http://www.baidu.com"}
-2019-06-20 16:21:08,478 [main] INFO  A4 - A4_AESOperator_加密=BI6IwDHSGlltNTmdBjv9+wyVPFsVz9nynSuNZEesalb3xOZdrQ6QF4HdnWnVIo00ASNbofdIU7y5
-eJZ0A0sjhXkBrIaWghVZ7IjaeEM4aJnRKfb6y7GOQd+URstwCHInt1+BTLQwnvurWIx896gpS60a
-UqZreIeD9pCaArK1CgQQYiFwDQ0IgwfpJpra0A4ETTlJ3AhwpG8J8UWmaAhEt+Vq7sxnyPqYLU0J
-5DrQDrp3IfocD3hJ0jco7vG5+CIa
-2019-06-20 16:21:08,478 [main] INFO  A4 - A4 post发送的数据={"sign":"BI6IwDHSGlltNTmdBjv9%2BwyVPFsVz9nynSuNZEesalb3xOZdrQ6QF4HdnWnVIo00ASNbofdIU7y5%0D%0AeJZ0A0sjhXkBrIaWghVZ7IjaeEM4aJnRKfb6y7GOQd%2BURstwCHInt1%2BBTLQwnvurWIx896gpS60a%0D%0AUqZreIeD9pCaArK1CgQQYiFwDQ0IgwfpJpra0A4ETTlJ3AhwpG8J8UWmaAhEt%2BVq7sxnyPqYLU0J%0D%0A5DrQDrp3IfocD3hJ0jco7vG5%2BCIa","merId":"156075319454001"}
-2019-06-20 16:21:35,573 [main] INFO  A4 - jsonaStringA4={"area":"广东深圳","datetime":"2019-06-20 16:21:35","orderNo":"0115556330","province":"广东省","phone":"13510181600","price":"10","isp":"1","notifyUrl":"http://www.baidu.com"}
-2019-06-20 16:21:35,812 [main] INFO  A4 - A4_AESOperator_加密=BI6IwDHSGlltNTmdBjv9+wyVPFsVz9nynSuNZEesalb3xOZdrQ6QF4HdnWnVIo00IXG02QIeKl1c
-rLA7/XrY0jQ+cvcGLfIA2jpLaj73qhgBeKja9nN2YiIQK0NS3XagwX9pWgPY+ufAonGqDVf1GKMA
-WqvMraeD/uOIZ3QnEB0ImFZmMJ3Tn3un489qVxWCpLUbcTvq03Cog9bI6R3hiNCzeQqmQgNXObS4
-HdYj1eTGxRimGkqv3ACQcAS8u8Ol
-2019-06-20 16:21:35,812 [main] INFO  A4 - A4 post发送的数据={"sign":"BI6IwDHSGlltNTmdBjv9%2BwyVPFsVz9nynSuNZEesalb3xOZdrQ6QF4HdnWnVIo00IXG02QIeKl1c%0D%0ArLA7%2FXrY0jQ%2BcvcGLfIA2jpLaj73qhgBeKja9nN2YiIQK0NS3XagwX9pWgPY%2BufAonGqDVf1GKMA%0D%0AWqvMraeD%2FuOIZ3QnEB0ImFZmMJ3Tn3un489qVxWCpLUbcTvq03Cog9bI6R3hiNCzeQqmQgNXObS4%0D%0AHdYj1eTGxRimGkqv3ACQcAS8u8Ol","merId":"156075319454001"}
-2019-06-20 16:29:52,102 [main] INFO  A4 - jsonaStringA4={"area":"广东深圳","datetime":"2019-06-20 16:29:52","orderNo":"0115556330","province":"广东省","phone":"13510181600","price":"10","isp":"1","notifyUrl":"http://www.baidu.com"}
-2019-06-20 16:29:52,343 [main] INFO  A4 - A4_AESOperator_加密=BI6IwDHSGlltNTmdBjv9+wyVPFsVz9nynSuNZEesalb3xOZdrQ6QF4HdnWnVIo00YCduJdFtEIGL
-x0eBbbgtlOLlfSP6ydCg4KWjqvcarRMq18D91fcUGmgAm+eWySIYxqFwBlSHSLD/E5kzNSF+7duL
-0uIOMcZ1Y6y0lv27l9NW45bzXW4KMdzU1YmloCUcmSPnIRL1ctqU3AWWCbXdOZHqUkLuDcxKbM6Q
-milx6S3RELkT8JyO6ouFuZ/EebIu
-2019-06-20 16:29:52,343 [main] INFO  A4 - A4 post发送的数据={"sign":"BI6IwDHSGlltNTmdBjv9%2BwyVPFsVz9nynSuNZEesalb3xOZdrQ6QF4HdnWnVIo00YCduJdFtEIGL%0D%0Ax0eBbbgtlOLlfSP6ydCg4KWjqvcarRMq18D91fcUGmgAm%2BeWySIYxqFwBlSHSLD%2FE5kzNSF%2B7duL%0D%0A0uIOMcZ1Y6y0lv27l9NW45bzXW4KMdzU1YmloCUcmSPnIRL1ctqU3AWWCbXdOZHqUkLuDcxKbM6Q%0D%0Amilx6S3RELkT8JyO6ouFuZ%2FEebIu","merId":"156075319454001"}
-2019-06-20 17:35:59,799 [main] INFO  A4 - jsonaStringA4={"area":"广东深圳","datetime":"2019-06-20 17:35:59","orderNo":"0115556330","province":"广东省","phone":"13510181600","price":"10","isp":"1","notifyUrl":"http://www.baidu.com"}
-2019-06-20 17:36:00,036 [main] INFO  A4 - A4_AESOperator_加密=BI6IwDHSGlltNTmdBjv9+wyVPFsVz9nynSuNZEesalZ4yfaIwyIcsJHOWiSeL0aCd/6VJuu29ys3
-YaolWQvv1PkoPjnB+r/d2qxkPha8USHM5t4Q5kYTlhAlJibpty9zidr689gcMfUQ3EQLmEjAMfyc
-r6/2elPdfvZddFoEnVgufC6MhRMdYEJhhJ7BUN9tK93ozHUOA0gHQyyXj5Utrtcm8TsNHcy1qbgG
-oRbqNP8NaL927ZdWC0dNYqgW7N2P
-2019-06-20 17:36:00,036 [main] INFO  A4 - A4 post发送的数据={"sign":"BI6IwDHSGlltNTmdBjv9%2BwyVPFsVz9nynSuNZEesalZ4yfaIwyIcsJHOWiSeL0aCd%2F6VJuu29ys3%0D%0AYaolWQvv1PkoPjnB%2Br%2Fd2qxkPha8USHM5t4Q5kYTlhAlJibpty9zidr689gcMfUQ3EQLmEjAMfyc%0D%0Ar6%2F2elPdfvZddFoEnVgufC6MhRMdYEJhhJ7BUN9tK93ozHUOA0gHQyyXj5Utrtcm8TsNHcy1qbgG%0D%0AoRbqNP8NaL927ZdWC0dNYqgW7N2P","merId":"156075319454001"}
-2019-06-20 18:24:51,241 [main] INFO  A4 - jsonaStringA4={"area":"广东深圳","datetime":"2019-06-20 18:24:51","orderNo":"0115556330","province":"广东省","phone":"13510181600","price":"10","isp":"1","notifyUrl":"http://www.baidu.com"}
-2019-06-20 18:24:51,482 [main] INFO  A4 - A4_AESOperator_加密=BI6IwDHSGlltNTmdBjv9+wyVPFsVz9nynSuNZEesalaBRg/iSGbH3Fgjo0j0ag6brmVGh7xOxzkt
-9ern5smTYHeQZ+6rtaDyrMSqlRJ2tSJrhueb/BGqw5F2oIp00TubDe5uRKrlcKijm1hb+NxVAE1y
-Pp8WOQwfz9qafNLUXQT+FTOroikgAWPqYo7yKKEnjrGPYtaXYFU2avXsfupgvKXgSxgiJwEeaSQ7
-Gg5/+LgOuoCLBZQSAW9IRZElNEJO
-2019-06-20 18:24:51,482 [main] INFO  A4 - A4 post发送的数据={"sign":"BI6IwDHSGlltNTmdBjv9%2BwyVPFsVz9nynSuNZEesalaBRg%2FiSGbH3Fgjo0j0ag6brmVGh7xOxzkt%0D%0A9ern5smTYHeQZ%2B6rtaDyrMSqlRJ2tSJrhueb%2FBGqw5F2oIp00TubDe5uRKrlcKijm1hb%2BNxVAE1y%0D%0APp8WOQwfz9qafNLUXQT%2BFTOroikgAWPqYo7yKKEnjrGPYtaXYFU2avXsfupgvKXgSxgiJwEeaSQ7%0D%0AGg5%2F%2BLgOuoCLBZQSAW9IRZElNEJO","merId":"156075319454001"}
-2019-06-20 18:28:06,763 [main] INFO  A4 - jsonaStringA4={"area":"广东深圳","datetime":"2019-06-20 18:28:06","orderNo":"0115556331","province":"广东省","phone":"13510181600","price":"10","isp":"1","notifyUrl":"http://www.baidu.com"}
-2019-06-20 18:28:06,999 [main] INFO  A4 - A4_AESOperator_加密=BI6IwDHSGlltNTmdBjv9+wyVPFsVz9nynSuNZEesalaBRg/iSGbH3Fgjo0j0ag6bSryPudOrvaZa
-ZpVcOH9KNK0oFVXJhnTQGNEK7XxJkOgZkMxDzcqfyvdXNjl4E5+/DxCJq/V7ElwuKLzyh3B+lzsP
-rokGxUt/xU5iEvVJunwdZvts7TrDvOcqyFUfifb9ExwPQKBcG3P82HCAPx8UY1OzWquvEuSqq20j
-6j7TG0xE3oKc8TtbpPUbvhXrlZRx
-2019-06-20 18:28:06,999 [main] INFO  A4 - A4 post发送的数据={"sign":"BI6IwDHSGlltNTmdBjv9%2BwyVPFsVz9nynSuNZEesalaBRg%2FiSGbH3Fgjo0j0ag6bSryPudOrvaZa%0D%0AZpVcOH9KNK0oFVXJhnTQGNEK7XxJkOgZkMxDzcqfyvdXNjl4E5%2B%2FDxCJq%2FV7ElwuKLzyh3B%2BlzsP%0D%0ArokGxUt%2FxU5iEvVJunwdZvts7TrDvOcqyFUfifb9ExwPQKBcG3P82HCAPx8UY1OzWquvEuSqq20j%0D%0A6j7TG0xE3oKc8TtbpPUbvhXrlZRx","merId":"156075319454001"}
+2019-07-02 11:09:35,597 [main] INFO  A5 - 原始数据=order1812403618115620369755961351018160010092eb189042af75a2a7f852a564285b87
+2019-07-02 11:09:36,107 [main] INFO  HttpClientGet - A1新接口请求url=http://api.taivei.com:18200/request?service=order&merchant_id=18124036181&merchant_orderid=1562036975596&charge_number=13510181600&charge_money=10&busi_type=0&back_url=&package_type=000&Sign=0a69f905631da5a27f75a18d3c4006a6
+2019-07-02 11:09:36,233 [main] INFO  A5 - A5接口请求返回=result_code=1101&result_desc=signΪ��
+2019-07-02 11:11:22,007 [main] INFO  A5 - 原始数据=order1812403618115620370820061351018160010092eb189042af75a2a7f852a564285b87
+2019-07-02 11:11:22,347 [main] INFO  HttpClientGet - A1新接口请求url=http://api.taivei.com:18200/request?service=order&merchant_id=18124036181&merchant_orderid=1562037082006&charge_number=13510181600&charge_money=10&busi_type=0&back_url=&package_type=000&Sign=fa1d1dbfc7589e257a00ea2a6e42a41d
+2019-07-02 11:11:22,442 [main] INFO  A5 - A5接口请求返回=result_code=1101&result_desc=signΪ��
+2019-07-02 11:30:40,534 [main] INFO  A5 - 原始数据=order1812403618115620382405321351018160010092eb189042af75a2a7f852a564285b87
+2019-07-02 11:30:40,864 [main] INFO  HttpClientGet - A1新接口请求url=http://api.taivei.com:18200/request?service=order&merchant_id=18124036181&merchant_orderid=1562038240532&charge_number=13510181600&charge_money=10&busi_type=0&back_url=&package_type=000&Sign=21867b1530c7217e3231716b187d880d
+2019-07-02 11:30:40,966 [main] INFO  A5 - A5接口请求返回=result_code=1101&result_desc=signΪ��
+2019-07-02 11:38:24,589 [main] INFO  A5 - 原始数据=order1812403618115620387045881351018160010092eb189042af75a2a7f852a564285b87
+2019-07-02 11:38:24,945 [main] INFO  HttpClientGet - A1新接口请求url=http://api.taivei.com:18200/request?service=order&merchant_id=18124036181&merchant_orderid=1562038704588&charge_number=13510181600&charge_money=10&busi_type=0&back_url=&package_type=000&sign=2cdc3ca73780d5d8eb3712a1b95a961a
+2019-07-02 11:38:25,149 [main] INFO  A5 - A5接口请求返回=result_code=1106&result_desc=����ֵ��ʱ���ܳ�ֵ&orderid=-1
+2019-07-02 11:39:40,778 [main] INFO  A5 - 原始数据=order1812403618115620387807771351018160050092eb189042af75a2a7f852a564285b87
+2019-07-02 11:39:41,106 [main] INFO  HttpClientGet - A1新接口请求url=http://api.taivei.com:18200/request?service=order&merchant_id=18124036181&merchant_orderid=1562038780777&charge_number=13510181600&charge_money=50&busi_type=0&back_url=&package_type=000&sign=e008d9f7eb2b2243d8a351ce5b80b403
+2019-07-02 11:39:41,242 [main] INFO  A5 - A5接口请求返回=result_code=0000&result_desc=�ύ�����ɹ�&orderid=10201907021139424504
+2019-07-02 11:53:18,906 [main] INFO  A5 - 原始数据=order18124036181156203959890513510181600500http://121.201.119.75:8080/mobilepay/common/a5?92eb189042af75a2a7f852a564285b87
+2019-07-02 11:53:19,259 [main] INFO  HttpClientGet - A1新接口请求url=http://api.taivei.com:18200/request?service=order&merchant_id=18124036181&merchant_orderid=1562039598905&charge_number=13510181600&charge_money=50&busi_type=0&back_url=http://121.201.119.75:8080/mobilepay/common/a5?&package_type=000&sign=8c76a9b4bb39634763fb9493b7f692fa
+2019-07-02 11:53:19,401 [main] INFO  A5 - A5接口请求返回=result_code=0000&result_desc=�ύ�����ɹ�&orderid=10201907021153204940
+2019-07-02 11:58:23,814 [main] INFO  A5 - 原始数据=order18124036181156203990381313480995209500http://121.201.119.75:8080/mobilepay/common/a5?92eb189042af75a2a7f852a564285b87
+2019-07-02 11:58:24,148 [main] INFO  HttpClientGet - A1新接口请求url=http://api.taivei.com:18200/request?service=order&merchant_id=18124036181&merchant_orderid=1562039903813&charge_number=13480995209&charge_money=50&busi_type=0&back_url=http://121.201.119.75:8080/mobilepay/common/a5?&package_type=000&sign=78723cf61a38185ea7739ad47d204ae5
+2019-07-02 11:58:24,343 [main] INFO  A5 - A5接口请求返回=result_code=0000&result_desc=�ύ�����ɹ�&orderid=10201907021158255060
+2019-07-02 12:09:43,466 [main] INFO  A5 - 原始数据=order18124036181156204058346418735662247500http://121.201.119.75:8080/mobilepay/common/a5?92eb189042af75a2a7f852a564285b87
+2019-07-02 12:09:43,830 [main] INFO  HttpClientGet - A1新接口请求url=http://api.taivei.com:18200/request?service=order&merchant_id=18124036181&merchant_orderid=1562040583464&charge_number=18735662247&charge_money=50&busi_type=0&back_url=http://121.201.119.75:8080/mobilepay/common/a5?&package_type=000&sign=d1cc333b29cda7d3fe5ee81d86c7417c
+2019-07-02 12:09:43,971 [main] INFO  A5 - A5接口请求返回=result_code=0000&result_desc=�ύ�����ɹ�&orderid=10201907021209455384
+2019-07-02 12:20:38,217 [main] INFO  A5 - 原始数据=order18124036181156204123821618735662247500http://121.201.119.75:8080/mobilepay/common/a5?92eb189042af75a2a7f852a564285b87
+2019-07-02 12:20:38,549 [main] INFO  HttpClientGet - A1新接口请求url=http://api.taivei.com:18200/request?service=order&merchant_id=18124036181&merchant_orderid=1562041238216&charge_number=18735662247&charge_money=50&busi_type=0&back_url=http://121.201.119.75:8080/mobilepay/common/a5?&package_type=000&sign=b5b51e8bfc9e2a31b2b2e003e63d6d51
+2019-07-02 12:20:38,679 [main] INFO  A5 - A5接口请求返回=result_code=0000&result_desc=�ύ�����ɹ�&orderid=10201907021220395610
+2019-07-02 12:20:42,949 [main] INFO  A5 - 原始数据=order18124036181156204124294813480995209500http://121.201.119.75:8080/mobilepay/common/a5?92eb189042af75a2a7f852a564285b87
+2019-07-02 12:20:43,278 [main] INFO  HttpClientGet - A1新接口请求url=http://api.taivei.com:18200/request?service=order&merchant_id=18124036181&merchant_orderid=1562041242948&charge_number=13480995209&charge_money=50&busi_type=0&back_url=http://121.201.119.75:8080/mobilepay/common/a5?&package_type=000&sign=11457b485f6319a9cb2fafe342bc6cad
+2019-07-02 12:20:43,386 [main] INFO  A5 - A5接口请求返回=result_code=0000&result_desc=�ύ�����ɹ�&orderid=10201907021220445613
+2019-07-02 12:21:08,880 [main] INFO  A5 - 原始数据=order18124036181156204126887913510181600500http://121.201.119.75:8080/mobilepay/common/a5?92eb189042af75a2a7f852a564285b87
+2019-07-02 12:21:09,221 [main] INFO  HttpClientGet - A1新接口请求url=http://api.taivei.com:18200/request?service=order&merchant_id=18124036181&merchant_orderid=1562041268879&charge_number=13510181600&charge_money=50&busi_type=0&back_url=http://121.201.119.75:8080/mobilepay/common/a5?&package_type=000&sign=008dd2b7729f6a2e0179bee53a9a5a12
+2019-07-02 12:21:09,348 [main] INFO  A5 - A5接口请求返回=result_code=0000&result_desc=�ύ�����ɹ�&orderid=10201907021221105626

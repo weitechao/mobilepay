@@ -3,6 +3,8 @@ package com.bracelet.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 public class Md5 {
 	
 	public static String encryption(String src) {
@@ -29,10 +31,17 @@ public class Md5 {
 		return sb.toString();
     }
 	
-	public static void main(String[] args) {
+	 public static String md5(String text, String key) throws Exception {
+	        //加密后的字符串
+	        String encodeStr=DigestUtils.md5Hex(text + key);
+	     
+	        return encodeStr;
+	        }
+	
+	public static void main(String[] args) throws Exception {
         // 需要加密的字符串
         String src = "123456";
-     System.out.println(encryption(src));
+     System.out.println(md5(src,"92eb189042af75a2a7f852a564285b87"));
     }
 	
 	

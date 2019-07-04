@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -16,33 +17,16 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.bracelet.entity.Sys;
 
 public class A4 {
-	/*
-	 * 
-	 * 
-	 * 
-	 * 充值接口:http://112.126.86.187:7760/unicomAync/buy.do
 
-查询接口：http://112.126.86.187:7760/unicomAync/queryBizOrder.do
-
-余额查询接口：http://112.126.86.187:7760/unicomAync/queryBalance.do
-
-key:fc939a8f2a2276e65395478fa55a1013cae4e284fefc9c28c5b80a24903b4551
-
-查单平台:http://112.126.86.187:7765/index.do
-
-用户名:xinchuanghai
-密码: sup123456（请及时修改密码）
-userId:589
-写好代码请给我回调地址和白名单，谢谢
-	 * */
 	private static Logger logger = LoggerFactory.getLogger(A4.class);
 
 //	private static final String privateKey = "fc939a8f2a2276e65395478fa55a1013cae4e284fefc9c28c5b80a24903b4551";
-	private static final String userId = "589";
+	private static final String userId = "156073891297301";
 	//private static final String itemId = "gd_chhf";//商品编号
-	private static final String chongZhiUrl = "http://120.79.5.45:8080/recharge/push";//test url
+	private static final String chongZhiUrl = "http://118.31.225.1:8080/recharge/push";//test url
 	//private static final String chongZhiUrl = "http://120.79.5.45:8080/recharge/push";//正式url
 	private static final String chaXunUrl = "http://120.79.5.45:8080/recharge/query/order";
 //	private static final String retUrl = "http://121.201.119.75:9999/mobilepay/common/returl?";
@@ -51,7 +35,7 @@ userId:589
 		JSONObject jsona = new JSONObject();
 		
 		jsona.put("phone", chargeAcct);
-		jsona.put("price", chargeCash);
+		jsona.put("price", chargeCash+"");
 		jsona.put("isp", isp);
 		jsona.put("orderNo", orderId);
 		jsona.put("province", province);
@@ -64,7 +48,7 @@ userId:589
        logger.info("A4  AESOperator 加密"+sign);
 		JSONObject jsonAll = new JSONObject();
 		jsonAll.put("sign", sign);
-		jsonAll.put("merId", "156075319454001");
+		jsonAll.put("merId", userId);
 		//jsonAll.put("busiBody", jsona);
 		String jsonAllStr = JSONObject.toJSONString(jsonAll);
 		logger.info("A4 post发送的数据="+jsonAllStr);
@@ -138,14 +122,14 @@ userId:589
 	public static void main(String[] args) throws Exception {
          JSONObject jsona = new JSONObject();
 		
-		jsona.put("phone", "13510181600");
-		jsona.put("price", "10");
-		jsona.put("isp", "1");
-		jsona.put("orderNo", "0115556331");
+		jsona.put("phone", "18665954447");
+		jsona.put("price", 300+"");
+		jsona.put("isp", "2");
+		jsona.put("orderNo", System.currentTimeMillis()+"");
 		jsona.put("province", "广东省");
 		jsona.put("area", "广东深圳");
 		jsona.put("datetime", Utils.getYyyyMMdd());
-		jsona.put("notifyUrl", "http://www.baidu.com");
+		jsona.put("notifyUrl", "http://121.201.119.75:8080/mobilepay/common/a4");
 		String jsonaString = jsona.toString();// 签名原文
 		logger.info("jsonaStringA4=" + jsonaString);
 		
@@ -157,7 +141,7 @@ userId:589
        logger.info("A4_AESOperator_加密="+sign);
 		JSONObject jsonAll = new JSONObject();
 		jsonAll.put("sign", urlString);
-		jsonAll.put("merId", "156075319454001");
+		jsonAll.put("merId", userId);
 		//jsonAll.put("busiBody", jsona);
 		String jsonAllStr = JSONObject.toJSONString(jsonAll);
 		logger.info("A4 post发送的数据="+jsonAllStr);
@@ -165,4 +149,15 @@ userId:589
 		String reponse = sendPost(chongZhiUrl, jsonAllStr);
 		System.out.println("reponse返回="+reponse);
 	}
+/*	public static void main(String[] args) {
+try {
+	String sign ="0YOLC8Dk1Rpcz33yLOiyFmHzeOq6g4o6vQBmWvXO2X9pwhGYBJHgty%2FMugddPZnVRHHPWIOSL3p8%0Aw0%2BW5%2F%2FQrTVgFJ058KeuWiHC8jqj8RB37kbiFVlNER74w1pUvdC6VLYhPtEp5aU0ul%2Beo7yhOYMI%0AEL4wMJKREFWk%2FlTH%2FwD5CRGB7ePUg9TTCtlGTeAC";
+	String urlString = URLDecoder.decode(sign, "UTF-8");
+	System.out.println(
+			AESOperator.decrypt(urlString));
+} catch (Exception e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
+	}*/
 }

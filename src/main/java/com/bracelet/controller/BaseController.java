@@ -112,6 +112,11 @@ public class BaseController {
 		fenceService.insertPreviousLevelErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode);// 增加商户充值失败记录
 	}
 	
+	public void insert5ErrorChargeInfo(String userName, String orderId, String chargeAcct, Integer chargeCash,
+			Integer errorCode,Integer id, String retUrl) {
+		fenceService.insert5ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode,id, retUrl);// 增加商户充值失败记录
+	}
+	
 	public void insert4ErrorChargeInfo(String userName, String orderId, String chargeAcct, Integer chargeCash,
 			Integer errorCode,Integer id, String retUrl) {
 		fenceService.insert4ErrorChargeInfo(userName, orderId, chargeAcct, chargeCash, errorCode,id, retUrl);// 增加商户充值失败记录
@@ -158,7 +163,7 @@ public class BaseController {
 			Map<String, List<String>> map = connection.getHeaderFields();
 			// 遍历所有的响应头字段
 			for (String key : map.keySet()) {
-				System.out.println(key + "--->" + map.get(key));
+				//System.out.println(key + "--->" + map.get(key));
 			}
 			// 定义 BufferedReader输入流来读取URL的响应
 			in = new BufferedReader(new InputStreamReader(connection.getInputStream()));

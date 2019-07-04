@@ -11,7 +11,7 @@ public class AESOperator {
 	/*
 	 * 加密用的Key 可以用26个字母和数字组成 此处使用AES-128-CBC加密模式，key需要为16位。
 	 */
-	private static String sKey="074f7f14e4bb97d0";// key，可自行修改
+	private static String sKey="9a84b5500556e48d";// key，可自行修改
 	private static String ivParameter = "0102030405060708";// 偏移量,可自行修改
 	private static AESOperator instance = null;
 
@@ -19,6 +19,7 @@ public class AESOperator {
 		sKey = key;
 	}
 
+	@SuppressWarnings("restriction")
 	public static String Encrypt(String encData, String secretKey, String vector) throws Exception {
 
 		if (secretKey == null) {
@@ -37,6 +38,7 @@ public class AESOperator {
 	}
 
 	// 加密
+	@SuppressWarnings("restriction")
 	public static String encrypt(String sSrc) throws Exception {
 		Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 		byte[] raw = sKey.getBytes();
@@ -48,6 +50,7 @@ public class AESOperator {
 	}
 
 	// 解密
+	@SuppressWarnings("restriction")
 	public static String decrypt(String sSrc) throws Exception {
 		try {
 			byte[] raw = sKey.getBytes("ASCII");
@@ -63,7 +66,7 @@ public class AESOperator {
 			return null;
 		}
 	}
-
+	@SuppressWarnings("restriction")
 	public String decrypt(String sSrc, String key, String ivs) throws Exception {
 		try {
 			byte[] raw = key.getBytes("ASCII");

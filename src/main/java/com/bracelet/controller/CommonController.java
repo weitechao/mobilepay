@@ -38,6 +38,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -62,6 +63,49 @@ public class CommonController extends BaseController {
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	
+	
+	/*
+	 * 第五家运营商的回调接口*/
+	@ResponseBody
+	@RequestMapping("/a5")
+	public String a5(@RequestParam String merchant_id,@RequestParam String merchant_orderid,
+			@RequestParam String order_id,	@RequestParam String charge_status,
+			@RequestParam Integer vouchtype,	@RequestParam String sign, @RequestParam(value = "audited_voucher", required = false) String audited_voucher) {
+		logger.info("第五家公司回调订单="+merchant_orderid+";状态="+charge_status);//SUCC成功，FAIL失败
+		
+		ReturnSuccessInfo returnInfo = fenceService.getReturnInfoByOrderId(merchant_orderid);
+		if(returnInfo!=null){
+			return "succ";
+		}
+		
+		CxInfo cxInfoError = fenceService.getCharge5ErrorInfo(merchant_orderid);
+		if(cxInfoError != null){
+			fenceService.insertReturnSuccessfulInfo(merchant_orderid,cxInfoError.getUser_id());
+			if("SUCC".equals(charge_status)){
+				insertSuccessInfo(cxInfoError.getUsername(), merchant_orderid, cxInfoError.getCharge_acct(),  cxInfoError.getCharge_cash(), 1);// 增加商户充值成功记录
+			}else{
+				updateUserBalanceByIdInsert(cxInfoError.getUser_id(), cxInfoError.getCharge_cash());
+				insertErrorChargeInfo(cxInfoError.getUsername(), merchant_orderid, cxInfoError.getCharge_acct(),  cxInfoError.getCharge_cash(), 0);// 增加商户充值成功记录
+			}
+			
+			
+			/*
+			 * http://www.baidu.com?Action=CX&AgentAccount=api_test&Orderid=SH2009_05150001&Orderstatu_int=16&OrderPayment=3.00&Errorcode=1
+			 * */
+			if("SUCC".equals(charge_status)){
+				charge_status="1";
+			}else{
+				charge_status="0";
+			}
+			if(!StringUtil.isEmpty(cxInfoError.getRet_url())){
+				String reponse = retUrl(cxInfoError.getRet_url(),cxInfoError.getUsername(),merchant_orderid,cxInfoError.getCharge_cash(),charge_status,audited_voucher);
+				logger.info("A5回调下游成功返回="+reponse);
+			}
+		}
+		
+			return "succ";
+	}
+	
 	//第四个公司回调
 	@ResponseBody
 	@RequestMapping(value = "/a4", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
@@ -70,17 +114,15 @@ public class CommonController extends BaseController {
 		try {
 		JSONObject reponseJsonObject = (JSONObject) JSON.parse(body);
 	//	String merId = reponseJsonObject.getString("merId");
-		String sign = reponseJsonObject.getString("sign");
-		
+		String sign = URLDecoder.decode(reponseJsonObject.getString("sign"), "UTF-8");
 		 JSONObject	OrderJson = (JSONObject) JSON.parse(AESOperator.decrypt(sign));
-		
 		String orderNo = OrderJson.getString("orderNo");
 		String status = OrderJson.getString("status");
 		String voucher = OrderJson.getString("voucher");
 		
 		
 		
-		logger.info("A4回调充值订单号状态="+orderNo+","+status);
+		logger.info("A4回调充值订单号状态(状态只有5成功，其他都是失败)="+orderNo+","+status);
 		ReturnSuccessInfo returnInfo = fenceService.getReturnInfoByOrderId(orderNo);
 		if(returnInfo!=null){
 			return "OK";
@@ -92,17 +134,22 @@ public class CommonController extends BaseController {
 			
 			if("5".equals(status)){
 				insertSuccessInfo(cxInfoError.getUsername(), orderNo,cxInfoError.getCharge_acct(), cxInfoError.getCharge_cash(), 1);// 增加商户充值成功记录
-				
 			}else{
 				updateUserBalanceByIdInsert(cxInfoError.getUser_id(), cxInfoError.getCharge_cash());
 				insertErrorChargeInfo(cxInfoError.getUsername(),orderNo,cxInfoError.getCharge_acct(), cxInfoError.getCharge_cash(), Integer.valueOf(status));// 增加商户充值成功记录
 			}
 			if(!StringUtil.isEmpty(cxInfoError.getRet_url())){
-				
+				if("5".equals(status)){
+					status="1";
+				}else{
+					status="0";
+				}
 				String reponse = retUrl(cxInfoError.getRet_url(),cxInfoError.getUsername(),orderNo,cxInfoError.getCharge_cash(),status, voucher);
 			
 				logger.info("A4回调下游返回="+reponse);
 			}
+		}else{
+			logger.info("A4未查到这笔订单="+orderNo);
 		}
 		
 		} catch (Exception e) {
@@ -152,9 +199,12 @@ public class CommonController extends BaseController {
 				
 				
 				if(!StringUtil.isEmpty(cxInfoError.getRet_url())){
-					
-					String reponse = retUrl(cxInfoError.getRet_url(),cxInfoError.getUsername(),info[1].split("=")[1],cxInfoError.getCharge_cash(),info[4].split("=")[1],info[0].split("=")[1]);
+					if(!"1".equals(info[4].split("=")[1])){
+						info[4].split("=")[1]="0";
+					}
+					String reponse = retUrl(cxInfoError.getRet_url(),cxInfoError.getUsername(),info[1].split("=")[1],cxInfoError.getCharge_cash(), info[4].split("=")[1], info[0].split("=")[1]);
 					logger.info("A3回调下游返回="+reponse);
+					
 					/*StringBuffer sb= new StringBuffer(cxInfoError.getRet_url());
 					sb.append("Action=CX&AgentAccount=").append(cxInfoError.getUsername()).append("&Orderid=").append(info[1].split("=")[1]).append("&Orderstatu_int=").append(info[4].split("=")[1])
 					.append("&OrderPayment=").append(cxInfoError.getCharge_cash()).append("&Errorcode=").append(info[4].split("=")[1]);
@@ -226,6 +276,13 @@ public class CommonController extends BaseController {
 				updateUserBalanceByIdInsert(cxInfoError.getUser_id(), cxInfoError.getCharge_cash());
 				insertErrorChargeInfo(cxInfoError.getUsername(), ejId, cxInfoError.getCharge_acct(),  cxInfoError.getCharge_cash(), status);// 增加商户充值成功记录
 			}
+			
+			if(status == 2){
+				status=1;
+			}else{
+				status=0;
+			}
+			
 			if(!StringUtil.isEmpty(cxInfoError.getRet_url())){
 				if(!StringUtil.isEmpty(voucher)){
 					logger.info("第一家公司回调订单="+downstreamSerialno+";状态="+status+";流水号="+voucher);
@@ -280,9 +337,15 @@ public class CommonController extends BaseController {
 			/*
 			 * http://www.baidu.com?Action=CX&AgentAccount=api_test&Orderid=SH2009_05150001&Orderstatu_int=16&OrderPayment=3.00&Errorcode=1
 			 * */
+			if(status == 2){
+				status=1;
+			}else{
+				status=0;
+			}
 			if(!StringUtil.isEmpty(cxInfoError.getRet_url())){
 				if(!StringUtil.isEmpty(voucher)){
 					logger.info("第二家公司回调订单="+downstreamSerialno+";状态="+status+";流水号="+voucher);
+					
 					String reponse = retUrl(cxInfoError.getRet_url(),cxInfoError.getUsername(),downstreamSerialno,cxInfoError.getCharge_cash(),status+"",voucher);
 				logger.info("A2回调下游成功返回="+reponse);
 				}else{
