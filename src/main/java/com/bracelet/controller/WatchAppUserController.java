@@ -3,6 +3,7 @@ package com.bracelet.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.bracelet.dto.SocketLoginDto;
 import com.bracelet.entity.BindDevice;
 import com.bracelet.entity.DeviceManagePhone;
@@ -32,6 +33,7 @@ import com.bracelet.util.AndroidPushUtil;
 import com.bracelet.util.RadixUtil;
 import com.bracelet.util.RanomUtil;
 import com.bracelet.util.RespCode;
+import com.bracelet.util.SmsUtil;
 import com.bracelet.util.StringUtil;
 import com.bracelet.util.Utils;
 
@@ -87,6 +89,17 @@ public class WatchAppUserController extends BaseController {
 	IConfService confService;
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/sendwuliu/{name}/{tel}/{orderid}", method = RequestMethod.GET)
+	public String getAuthCode(@PathVariable String name, @PathVariable String tel,@PathVariable String orderid) {
+		//this.authcodeService.sendAuthCodeNew(name,tel,orderid);
+		Utils.fasong(name,tel,orderid);
+		return "1";
+	}
+	
+	
 	// 登录
 	@ResponseBody
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")

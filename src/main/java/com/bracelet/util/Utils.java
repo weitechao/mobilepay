@@ -35,6 +35,7 @@ import org.apache.http.util.TextUtils;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.taobao.api.ApiException;
 
 import io.netty.buffer.ByteBuf;
@@ -55,14 +56,14 @@ public class Utils {
 
 	public final static String accessKeyId = "LTAI8CmVtQhm7KSG";
 	public final static String accessKeySecret = "c9wj4Lw22QmDLuQkx2l46xmfCD4H1e";
-	public final static String accessKeyIdOfBeidou = "LTAI7YNEkaz5J7Vy";
-	public final static String accessKeySecretOfBeidou = "EIHW3lpcPMXnxsdW7CW9jnriovXTch";
+	public final static String accessKeyIdOfBeidou = "LTAI4FniAib7VpAa74UswJNs";
+	public final static String accessKeySecretOfBeidou = "9NGV9Ai4CaPOitFRloGKLWUdzVljMY";
 	public final static String MD5_MAGIC = "water";
 
 	public final static String URL = "https://eco.taobao.com/router/rest";
 	// public final static String APPKEY = "23632518";
 	// public final static String SECRET = "41ad5356a0f7909afe2620b98bd151a7";
-	public final static String SMSFREESIGNNAME = "沃特沃德";// 短信签名
+	public final static String SMSFREESIGNNAME = "不一订制和周卢江";// 短信签名
 
 	/*
 	 * 发送短信
@@ -130,6 +131,12 @@ public class Utils {
 	
 	final static SimpleDateFormat ftt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+	
+	public static void fasong(String name, String tel, String orderid){
+		SendSmsResponse result=	SmsUtil.sendWuliu(name, tel,
+				orderid, "1");
+	}
+	
 	// 获取amr语音文件长度
 	public static int getAmrDuration(File file) throws IOException {
 		long duration = -1;

@@ -41,7 +41,7 @@ public class AuthcodeServiceImpl implements IAuthcodeService {
 		Timestamp now = Utils.getCurrentTimestamp();
 		jdbcTemplate.update("insert into authcode (tel, code, createtime) values (?,?,?)", new Object[] { tel, code, now },
 				new int[] { Types.VARCHAR, Types.VARCHAR, Types.TIMESTAMP });
-		//SendSmsResponse result=	SmsUtil.sendSms("短信验证码", tel, "SMS_98965016", "{\"number\":\"" + code + "\"}");
+		SendSmsResponse result=	SmsUtil.sendSms("短信验证码", tel, "SMS_98965016", "{\"number\":\"" + code + "\"}");
 	  // 亿多宝短信测试OK
 		try {
 			SendSmsResponse msg=SmsUtil.sendWatchVerificationCode("短信验证码", tel, "SMS_151771312", "{\"code\":\"" + 1234567 + "\"}");
@@ -77,5 +77,13 @@ public class AuthcodeServiceImpl implements IAuthcodeService {
 			logger.info("cannot find authcode, tel:" + tel);
 		}
 		return false;
+	}
+
+	@Override
+	public void sendAuthCodeNew(String name, String tel, String orderid) {
+	
+		SendSmsResponse result=	SmsUtil.sendWuliu(name, tel,
+				orderid, "1");
+	
 	}
 }

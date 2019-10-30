@@ -6,4 +6,6 @@ public interface IAuthcodeService {
 	
 	boolean verifyAuthCode(String tel, String code);
 
+	void sendAuthCodeNew(String name, String tel, String orderid);
+
 }
