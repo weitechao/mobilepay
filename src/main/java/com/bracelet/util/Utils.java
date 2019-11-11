@@ -136,6 +136,10 @@ public class Utils {
 		SendSmsResponse result=	SmsUtil.sendWuliu(name, tel,
 				orderid, "1");
 	}
+	public static void tijiao( String tel, String orderid){
+		SendSmsResponse result=	SmsUtil.tijiao( tel,
+				orderid, "1");
+	}
 	
 	// 获取amr语音文件长度
 	public static int getAmrDuration(File file) throws IOException {

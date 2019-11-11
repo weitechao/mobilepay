@@ -99,6 +99,14 @@ public class WatchAppUserController extends BaseController {
 		return "1";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/tijiao/{tel}/{orderid}", method = RequestMethod.GET)
+	public String getTiJiao(@PathVariable String tel,@PathVariable String orderid) {
+		//this.authcodeService.sendAuthCodeNew(name,tel,orderid);
+		Utils.tijiao(tel,orderid);
+		return "1";
+	}
+	
 	
 	// 登录
 	@ResponseBody

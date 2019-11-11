@@ -220,6 +220,50 @@ public class SmsUtil {
 		return result;
 	}
 	
+	public static SendSmsResponse tijiao(String mobile,
+			String booknum, String tplParam) {
+		logger.info("开始发送短信[mobile:" + mobile + ",tplCode:" + "1"
+				+ ",tplParam:" + tplParam + "]");
+		// 可自助调整超时时间
+		System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
+		System.setProperty("sun.net.client.defaultReadTimeout", "10000");
+		SendSmsResponse result = null;
+		Integer rstatus = 0;
+		String rmsg = "";
+		try {
+			// 初始化acsClient,暂不支持region化
+			IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou",
+					Utils.accessKeyIdOfBeidou, Utils.accessKeySecretOfBeidou);
+			DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", product,
+					domain);
+			IAcsClient acsClient = new DefaultAcsClient(profile);
+			// 组装请求对象-具体描述见控制台-文档部分内容
+			SendSmsRequest request = new SendSmsRequest();
+			// 必填:待发送手机号
+			request.setPhoneNumbers(mobile);
+			// 必填:短信签名-可在短信控制台中找到
+			request.setSignName("不一订制和周卢江");
+			// 必填:短信模板-可在短信控制台中找到
+			request.setTemplateCode("SMS_177256291");
+			// 可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
+			String name="";
+			request.setTemplateParam("{name:'"+name+"',booknum:'"+booknum+"'}");
+			// hint 此处可能会抛出异常，注意catch
+			result = acsClient.getAcsResponse(request);
+			rmsg = result.getMessage();
+			logger.info("收到短信结果[mobile:" + mobile + ",tplCode:" + "11"
+					+ ",tplParam:" + tplParam + "] ->: " + "Code="
+					+ result.getCode() + ", Message=" + result.getMessage()
+					+ ", RequestId=" + result.getRequestId() + ", BizId="
+					+ result.getBizId());
+		} catch (Exception e) {
+			rstatus = 1;
+			rmsg = e.getMessage();
+			logger.info("短信发送错误:", e);
+		}
+		return result;
+	}
+	
 	public static SendSmsResponse sendWuliu(String name, String mobile,
 			String booknum, String tplParam) {
 		logger.info("开始发送短信[mobile:" + mobile + ",tplCode:" + "1"
@@ -265,7 +309,7 @@ public class SmsUtil {
 
 	
 	public static void main(String[] args) throws ApiException {
-		SendSmsResponse result=	sendWuliu("tete", "18735662247",
+		SendSmsResponse result=	tijiao("18735662247",
 				"123456897", "1") ;
          // System.out.println(result.getMessage());
           System.out.println("a="+result.getCode());
