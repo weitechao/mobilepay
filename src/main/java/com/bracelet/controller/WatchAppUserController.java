@@ -103,7 +103,11 @@ public class WatchAppUserController extends BaseController {
 	@RequestMapping(value = "/tijiao/{tel}/{orderid}", method = RequestMethod.GET)
 	public String getTiJiao(@PathVariable String tel,@PathVariable String orderid) {
 		//this.authcodeService.sendAuthCodeNew(name,tel,orderid);
-		Utils.tijiao(tel,orderid);
+		
+		if(StringUtil.isEmpty(ChannelMap.getInteger(orderid))){
+			Utils.tijiao(tel,orderid);
+			ChannelMap.addInteger(orderid, 1);
+		}
 		return "1";
 	}
 	
