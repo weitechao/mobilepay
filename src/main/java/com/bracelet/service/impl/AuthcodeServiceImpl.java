@@ -81,9 +81,9 @@ public class AuthcodeServiceImpl implements IAuthcodeService {
 
 	@Override
 	public void sendAuthCodeNew(String name, String tel, String orderid) {
-	
-		SendSmsResponse result=	SmsUtil.sendWuliu(name, tel,
-				orderid, "1");
-	
+		// TODO Auto-generated method stub
+		
 	}
+
+	
 }

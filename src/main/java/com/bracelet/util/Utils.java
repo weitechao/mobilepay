@@ -133,7 +133,7 @@ public class Utils {
 
 	
 	public static void fasong(String name, String tel, String orderid){
-		SendSmsResponse result=	SmsUtil.sendWuliu(name, tel,
+		SendSmsResponse result=	SmsUtil.sendWuliu(tel,
 				orderid, "1");
 	}
 	public static void tijiao( String tel, String orderid){

@@ -264,7 +264,7 @@ public class SmsUtil {
 		return result;
 	}
 	
-	public static SendSmsResponse sendWuliu(String name, String mobile,
+	public static SendSmsResponse sendWuliu(String mobile,
 			String booknum, String tplParam) {
 		logger.info("开始发送短信[mobile:" + mobile + ",tplCode:" + "1"
 				+ ",tplParam:" + tplParam + "]");
@@ -290,7 +290,7 @@ public class SmsUtil {
 			// 必填:短信模板-可在短信控制台中找到
 			request.setTemplateCode("SMS_177256950");
 			// 可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
-			request.setTemplateParam("{name:'"+name+"',booknum:'"+booknum+"'}");
+			request.setTemplateParam("{booknum:'"+booknum+"'}");
 			// hint 此处可能会抛出异常，注意catch
 			result = acsClient.getAcsResponse(request);
 			rmsg = result.getMessage();
@@ -309,13 +309,16 @@ public class SmsUtil {
 
 	
 	public static void main(String[] args) throws ApiException {
-		SendSmsResponse result=	tijiao("18735662247",
-				"123456897", "1") ;
+		/*SendSmsResponse result=	sendWuliu("bb", "18735662247",
+				"5464564", "1");*//*("18735662247",
+				"123456897", "1") ;*/
          // System.out.println(result.getMessage());
-          System.out.println("a="+result.getCode());
+         // System.out.println("a="+result.getCode());
 		/*	String a=useFingerprintOpenDoorSendMsg("123456","tete","18735662247");
 		System.out.println(a);
 		String b=pickALockSendMsg("123456","18735662247");
 		System.out.println(b);*/
+		SmsUtil.sendWuliu("18735662247",
+				"119111500118071", "1");
 	}
 }

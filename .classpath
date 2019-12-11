@@ -31,6 +31,7 @@
 	<classpathentry kind="lib" path="libs/aliyun-java-sdk-dysmsapi-1.0.0.jar"/>
 	<classpathentry kind="lib" path="libs/aliyun-java-sdk-dyvmsapi-1.0.0.RELEASE.jar"/>
 	<classpathentry kind="lib" path="libs/jxl-2.6.12.jar"/>
+	<classpathentry kind="lib" path="libs/hutool-all-5.0.6.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

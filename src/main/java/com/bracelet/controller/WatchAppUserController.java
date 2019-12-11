@@ -92,10 +92,12 @@ public class WatchAppUserController extends BaseController {
 	
 	
 	@ResponseBody
-	@RequestMapping(value = "/sendwuliu/{name}/{tel}/{orderid}", method = RequestMethod.GET)
-	public String getAuthCode(@PathVariable String name, @PathVariable String tel,@PathVariable String orderid) {
+	@RequestMapping(value = "/sendwuliu/{tel}/{orderid}", method = RequestMethod.GET)
+	public String getAuthCode(@PathVariable String tel,@PathVariable String orderid) {
 		//this.authcodeService.sendAuthCodeNew(name,tel,orderid);
-		Utils.fasong(name,tel,orderid);
+		//Utils.fasong(name,tel,orderid);
+		SmsUtil.sendWuliu(tel,
+				orderid, "1");
 		return "1";
 	}
 	
