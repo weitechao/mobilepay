@@ -1,20 +1,46 @@
 package excel;
 
+import java.sql.Types;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bracelet.service.IStepService;
+import com.bracelet.util.DbOperationUtils;
+import com.bracelet.util.Utils;
 
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 
+/*@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:applicationContext.xml"})*/
 public class TestExcel {
 	
 	
+
+	
 public static void main(String[] args) {
+	
+	JdbcTemplate jtdb = DbOperationUtils.getJdbcTemplate()   ;
+	  
+	 jtdb.update("insert into step (user_id, imei, step_number, createtime) values (?,?,?,?)",
+				new Object[] { 1, "213", 1, Utils.getCurrentTimestamp() },
+				new int[] { Types.INTEGER, Types.VARCHAR, Types.INTEGER, Types.TIMESTAMP });
+	  
+	  System.out.println(1);
+//    standService.paginationByCondition(new StandQC());
+//    standService.findById("1");
+      
+
 	
 /*	ExcelReader reader = ExcelUtil.getReader("d:/20191203192209.xlsx");
 	List<List<Object>> readAll = reader.read();
